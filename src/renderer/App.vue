@@ -1168,7 +1168,7 @@
         <!-- END Hero -->
 
         <!-- Page Content -->
-        <div class="content" >
+        <div class="content"  style="flex: 1">
           <!-- <h2 class="content-heading">
             Your Content
             <small>Subtitle</small>
