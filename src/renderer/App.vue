@@ -1341,7 +1341,7 @@ export default {
     },
     maximizeWindow(){
       if(remote.getCurrentWindow().isMaximized()){
-        remote.getCurrentWindow().restore()
+        remote.getCurrentWindow().unmaximize()
       }else{
         remote.getCurrentWindow().maximize();
       }

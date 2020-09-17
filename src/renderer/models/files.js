@@ -26,5 +26,3 @@ export default class Files {
     }
   }
 }
-
-// module.exports = { Files };

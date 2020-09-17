@@ -31,9 +31,8 @@ export default class Calls {
     try {
       const attributes = _keysAttributes.split('');
       let type = attributes[0];
-      let attribute = attributes[1] ? attributes[1] : null;
+      let attribute = attributes[1] ? attributes[1] : '';
       let info = [];
-      let filteredAttributes = [];
 
       info['type'] = this.AllTypes().filter((key) => {
         return Object.keys(key) == type;
@@ -42,19 +41,7 @@ export default class Calls {
         info['attribute'] = this.AllAttributes().filter(key => {
           return Object.keys(key) == attribute;
         })[0];
-      }else {
-        info['attribute'] = '';
       }
-      // for (let i = 0; i < this.AllAttributes().length; i++) {
-      //   const attribute = this.AllAttributes()[i];
-      //   for (let j = 0; j < attributes.length; j++) {
-      //     const informedAttribute = attributes[j];
-      //     if(Object.keys(attribute) == informedAttribute){
-      //       filteredAttributes.push(attribute);
-      //     }
-      //   }
-      // }
-      //info['attributes'] = filteredAttributes;
       console.log('[CALLS][GETATTRIBUTESINFO] INFO\n', info);
       return info;
     } catch (error) {
@@ -62,4 +49,3 @@ export default class Calls {
     }
   }
 }
-// module.exports = { Calls }

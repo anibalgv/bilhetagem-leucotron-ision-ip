@@ -78,4 +78,3 @@ export default class Tickets {
   }
 
 }
-// module.exports = Tickets;
