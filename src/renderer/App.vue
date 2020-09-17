@@ -807,7 +807,7 @@
                 </router-link>
               </li>
               <li class="nav-main-item">
-                <router-link to="/" class="nav-main-link">
+                <router-link to="/tickets/report-today" class="nav-main-link">
                   <i class="nav-main-link-icon fa fa-newspaper"></i>
                   <span class="nav-main-link-name">Reports</span>
                 </router-link>
@@ -1092,6 +1092,15 @@
             >
               <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
             </button>
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="minimizeWindow" >
+              <i class="fa fa-window-minimize"></i>
+            </button>
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="maximizeWindow" >
+              <i class="fa fa-window-maximize"></i>
+            </button>
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="closeWindow" >
+              <i class="fa fa-window-close"></i>
+            </button>
             <!-- END Toggle Side Overlay -->
           </div>
           <!-- END Right Section -->
@@ -1320,8 +1329,24 @@
 </template>
 
 <script>
+import { remote } from "electron";
 export default {
   name: "electron-vue",
+  methods:{
+    closeWindow(){
+      remote.getCurrentWindow().close();
+    },
+    minimizeWindow(){
+      remote.getCurrentWindow().minimize();
+    },
+    maximizeWindow(){
+      if(remote.getCurrentWindow().isMaximized()){
+        remote.getCurrentWindow().restore()
+      }else{
+        remote.getCurrentWindow().maximize();
+      }
+    }
+  },
 };
 </script>
 

@@ -1,12 +1,8 @@
-
-// var sqlite = require('sqlite-sync');
 import sqlite from 'sqlite-sync';
-// var { Files } = require('./files');
 import Files from './files';
-// var { CSV } = require('./csv');
 import CSV from './csv';
-// var { Ftp } = require('./ftp');
 import Ftp from './ftp';
+import Calls from './calls';
 
 export default class Tickets {
 
@@ -34,7 +30,11 @@ export default class Tickets {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
       for (let i = 0; i < _ticketsJSON.length; i++) {
         const ticket = _ticketsJSON[i];
+        console.log('ticket :', ticket);
         if (ticket.equipamento) {
+          ticket['data'] = ticket.data_inicio.split('/').reverse().join('-');
+          ticket['tipo'] = Object.values(new Calls().getAttributesInfo(ticket.atributo_ligacao).type)[0];
+          ticket['atributo'] = Object.values(new Calls().getAttributesInfo(ticket.atributo_ligacao).attribute)[0];
           console.log('ticket :', ticket);
           const id = sqlite.insert('tickets', ticket);
           console.log('[TICKETS][INSERT] ', id);
@@ -64,5 +64,18 @@ export default class Tickets {
       return false;
     }
   }
+
+  getByDate(_date_start, _date_end){
+    try {
+      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      const tickets = sqlite.run("SELECT *  FROM tickets  WHERE data BETWEEN ? AND ? ;" , [_date_start, _date_end]);
+      console.log('[TICKETS][GETBYDATE] ', _date_start, _date_end, tickets);
+      return tickets;
+    } catch (error) {
+      console.log('[TICKETS][GETBYDATE] -> ERROR\n', error);
+      return false;
+    }
+  }
+
 }
 // module.exports = Tickets;

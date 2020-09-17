@@ -16,7 +16,7 @@ export default class CSV {
           temp[key] = value.replace('"', '').replace('"', '').trim();
         }
         if('undefined' in temp)
-          delete temp['undefined']  ;
+          delete temp['undefined'];
         json.push(temp);
       }
       console.log('[CSV][CONVERTTOJSON]\n', json);

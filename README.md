@@ -50,9 +50,9 @@ SIMPLES BILHETAGEM PARA EQUIPAMENTOS LEUCONTRON ISION IP
 
 
 
-# electron-vue
+# INSTALL
 
-> An electron-vue project
+> An electron project
 
 #### Build Setup
 

@@ -21,7 +21,10 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
-    
+    titleBarStyle: "hiddenInset",
+    transparent: true,
+    frame: false,
+    darkTheme: true
   });
 
   mainWindow.loadURL(winURL);
