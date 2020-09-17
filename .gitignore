@@ -8,8 +8,5 @@ npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
-src/renderer/models/*
-src/renderer/downloads/*
-src/renderer/pages/*
 
 

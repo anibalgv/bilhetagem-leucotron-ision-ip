@@ -1,3 +1,55 @@
+# BILHETAGEM LEUCOTRON
+
+SIMPLES BILHETAGEM PARA EQUIPAMENTOS LEUCONTRON ISION IP
+
+## CONNECT TO LEUCONTRON APPLIANCE 
+  + [X] FTP
+    + [X] CONNECT TO ISION IP
+    + [X] DOWNLOAD BILHET00 FILE
+    + [X] DELETE DOWNLOADED FILE
+  + [ ] SERIAL PORT
+
+## FILES
+
+* [X] READ LOCAL FILE DOWNLOADED FROM FTP
+* [X] DELETE LOCAL FILE IMPORTED TO DATABASE
+
+## CSV´s
+
+* [X] CONVERT TEXT TICKETS FILE TO JSON OBJECT
+
+## TICKETS
+
+* [ ] IMPORT CALL TICKETS 
+* [ ] LIST OBJECTS
+
+## DATABASE/SQLITE
+
+* [X] CREATE SQLITE DATABASE WHITH FOLLOWED ATTRIBUTES:
+  + [x] TICKETS
+    - equipamento, responsavel, data_inicio, hora_inicio, hora_incio_segmento, tempo_bilhete, tempo_ligacao, tempo_atendimento, reservado, identificacao_linha, numero_rota,numero_externo, ligacao_transferida, atributo_ligacao, password_call, call_stamp, packetloss,jitter_evaluation, rastreador, nome_usuario, email_usuario.
+  + [x] CONFIG
+    - app_first_run, ftps_connect_host, ftps_connect_user, ftps_connect_password.
+## NOTIFICATIONS/EMAIL
+  + [ ] SEND E-MAIL WITH CALLS MADE BY USER ON THE MONTH
+
+## PAGES/VIEWS
+
+* [ ] CONFIG APP
+* [ ] DASBHOARDS - GENERAL
+* [ ] DASHBOARDS - COMPARE MONTHS
+* [ ] DASHBOARDS - RAMAL WITH MORE NUMBER OF CALLS
+* [ ] IMPORT TICKETS
+* [ ] SHOW TICKETS BY RAMAL
+* [ ] SHOW TICKETS OF TODAY
+* [ ] SHOW TICKETS BY DATE INTERVAL
+* [ ] SHOW TICKETS BY INTERNAL/EXTERNAL/RECEIVED CALLS
+
+
+---
+
+
+
 # electron-vue
 
 > An electron-vue project
