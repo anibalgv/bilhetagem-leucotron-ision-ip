@@ -67,7 +67,7 @@
                   >
                     <div class="block-content block-content-full text-center">
                       <div class="push">
-                        <i class="fa fa-file-export fa-2x text-info"></i>
+                        <i class="fa fa-file-csv fa-2x text-info"></i>
                       </div>
                       <div class="font-size-h4 font-w700">
                         <span class="text-muted"></span> EXPORT
@@ -100,7 +100,7 @@
                   >
                     <div class="block-content block-content-full text-center">
                       <div class="push">
-                        <i class="fa fa-file-export fa-2x text-info"></i>
+                        <i class="fa fa-file-code fa-2x text-info"></i>
                       </div>
                       <div class="font-size-h4 font-w700">
                         <span class="text-muted"></span> EXPORT
