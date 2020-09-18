@@ -3,6 +3,7 @@ import Files from './files';
 import CSV from './csv';
 import Ftp from './ftp';
 import Calls from './calls';
+import JSONS from './jsons';
 
 export default class Tickets {
 
@@ -17,11 +18,13 @@ export default class Tickets {
 
   All() {
     try {
-      sqlite.connect('./database/tickets.sqlite');
+      sqlite.connect(__dirname + '/../database/tickets.sqlite');
       var rows = sqlite.run("SELECT * FROM tickets");
+      sqlite.close();
       return rows;
     } catch (error) {
       console.log(error);
+      console.log('[TICKETS][ALL] -> ERROR\n', error);
     }
   }
 
@@ -33,8 +36,8 @@ export default class Tickets {
         console.log('ticket :', ticket);
         if (ticket.equipamento) {
           ticket['data'] = ticket.data_inicio.split('/').reverse().join('-');
-          ticket['tipo'] = Object.values(new Calls().getAttributesInfo(ticket.atributo_ligacao).type)[0];
-          ticket['atributo'] = Object.values(new Calls().getAttributesInfo(ticket.atributo_ligacao).attribute)[0];
+          ticket['tipo'] = Object.values(new Calls().getAtributosInfo(ticket.atributo_ligacao).tipo)[0];
+          ticket['atributo'] = Object.values(new Calls().getAtributosInfo(ticket.atributo_ligacao).atributo)[0];
           console.log('ticket :', ticket);
           const id = sqlite.insert('tickets', ticket);
           console.log('[TICKETS][INSERT] ', id);
@@ -65,15 +68,38 @@ export default class Tickets {
     }
   }
 
-  getByDate(_date_start, _date_end){
+  getByDate(_date_start, _date_end) {
     try {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
-      const tickets = sqlite.run("SELECT *  FROM tickets  WHERE data BETWEEN ? AND ? ;" , [_date_start, _date_end]);
+      const tickets = sqlite.run("SELECT *  FROM tickets  WHERE data BETWEEN ? AND ? ;", [_date_start, _date_end]);
       console.log('[TICKETS][GETBYDATE] ', _date_start, _date_end, tickets);
       return tickets;
     } catch (error) {
       console.log('[TICKETS][GETBYDATE] -> ERROR\n', error);
       return false;
+    }
+  }
+
+  ExportToJSON() {
+    try {
+      const tickets = this.All();
+      const ticketsTEXT = JSON.stringify(tickets);
+      //fs.writeFileSync(__dirname + '/../database/exported_tickets.json', ticketsTEXT);
+      console.log('[TICKETS][EXPORTTOJSON]', tickets);
+      new Files().SaveDialog('exported_tickets.json', ticketsTEXT);
+    } catch (error) {
+      console.log('[TICKETS][EXPORTTOJSON] -> ERROR\n', error);
+    }
+  }
+
+  ExportToCSV(){
+    try {
+      const tickets = this.All();
+      const ticketsCSV = new JSONS().ConverToCSV(tickets);
+      new Files().SaveDialog('exported_tickets.csv', ticketsCSV);
+      console.log('[TICKETS][EXPORTTOCSV]');
+    } catch (error) {
+      console.log('[TICKETS][EXPORTTOCSV] -> ERROR\n', error);
     }
   }
 

@@ -1,6 +1,5 @@
-// var fs = require('fs');
 import * as fs from 'fs';
-
+import electron from 'electron';
 export default class Files {
 
   constructor() { }
@@ -25,4 +24,21 @@ export default class Files {
       return false;
     }
   }
+
+  SaveDialog(_path, _fileContent) {
+    try {
+      const dialog = electron.remote.dialog;
+      dialog.showSaveDialog({
+        title: 'SAVE FILE AS...',
+        defaultPath: _path,
+        buttonLabel: 'SAVE EXPORTED FILE',
+        filters: [],
+      }, function (file) {
+        fs.writeFileSync(file, _fileContent );
+      });
+    } catch (error) {
+      console.log('[FILES][DOWNLOAD] -> ERROR\n', error);
+    }
+  }
+
 }

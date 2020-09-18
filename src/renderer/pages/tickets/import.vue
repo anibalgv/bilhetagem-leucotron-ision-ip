@@ -12,7 +12,7 @@
     <div class="block-content" style="background-color:#ffffff ">
       <div class id>
         <div class="row">
-          <div class="col-md-6 col-xl-3">
+          <div class="col-md-6 col-xl-6">
             <div>
               <div class>
                 <div class="block-content">
@@ -63,6 +63,7 @@
                   <a
                     class="block block-rounded block-bordered block-rounded block-link-shadow"
                     href="javascript:void(0)"
+                    v-on:click="exportToCSV"
                   >
                     <div class="block-content block-content-full text-center">
                       <div class="push">
@@ -95,6 +96,7 @@
                   <a
                     class="block block-rounded block-bordered block-rounded block-link-shadow"
                     href="javascript:void(0)"
+                    @click="exportToJSON"
                   >
                     <div class="block-content block-content-full text-center">
                       <div class="push">
@@ -117,6 +119,7 @@
 </template>
 
 <script>
+import CSV from '../../models/csv';
 import Tickets from "../../models/tickets";
 
 export default {
@@ -124,6 +127,12 @@ export default {
     async Import() {
       new Tickets().Import();
     },
+    exportToJSON(){
+      new Tickets().ExportToJSON();
+    },
+    exportToCSV(){
+      new Tickets().ExportToCSV();
+    }
   },
 };
 </script>

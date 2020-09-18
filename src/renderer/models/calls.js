@@ -2,7 +2,7 @@ export default class Calls {
 
   constructor() { }
 
-  AllAttributes() {
+  getAllAtributos() {
     return [
       { A: 'AUTOMATICA' },
       { C: 'CAPTURADA' },
@@ -18,7 +18,7 @@ export default class Calls {
     ];
   }
 
-  AllTypes() {
+  getAllTipos() {
     return [
       { I: 'INTERNA' },
       { O: 'ORIGINADA' },
@@ -26,26 +26,28 @@ export default class Calls {
     ];
   }
 
-  getAttributesInfo(_keysAttributes) {
+  getAtributosInfo(_keysAtributos) {
     // T/AAAA: tipo e atributos da ligação. 
     try {
-      const attributes = _keysAttributes.split('');
-      let type = attributes[0];
-      let attribute = attributes[1] ? attributes[1] : '';
+      const atributos = _keysAtributos.split('');
+      let tipo = atributos[0];
+      let atributo = atributos[1] ? atributos[1] : null;
       let info = [];
 
-      info['type'] = this.AllTypes().filter((key) => {
-        return Object.keys(key) == type;
+      info['tipo'] = this.getAllTipos().filter((key) => {
+        return Object.keys(key) == tipo;
       })[0];
-      if (attribute) {
-        info['attribute'] = this.AllAttributes().filter(key => {
-          return Object.keys(key) == attribute;
+      if (atributo) {
+        info['atributo'] = this.getAllAtributos().filter(key => {
+          return Object.keys(key) == atributo;
         })[0];
+      }else{
+        info['atributo'] = '';
       }
-      console.log('[CALLS][GETATTRIBUTESINFO] INFO\n', info);
+      console.log('[CALLS][GETATRIBUTOSINFO] INFO\n', info);
       return info;
     } catch (error) {
-      console.log('[CALLS][GETATTRIBUTESINFO] ERROR\n', error);
+      console.log('[CALLS][GETATRIBUTOSINFO] ERROR\n', error);
     }
   }
 }

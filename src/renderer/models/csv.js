@@ -1,5 +1,5 @@
 export default class CSV {
-
+  
   constructor() { }
 
   ConvertToJSON(_headers, _text) {
