@@ -21,6 +21,11 @@ export default new Router({
       component: require('@/pages/tickets/report-today').default
     },
     {
+      path: '/configurations/',
+      name: 'configurations',
+      component: require('@/pages/configurations').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

@@ -119,20 +119,21 @@
 </template>
 
 <script>
-import CSV from '../../models/csv';
+import CSV from "../../models/csv";
 import Tickets from "../../models/tickets";
+import Configurations from "../../models/configurations";
 
 export default {
   methods: {
     async Import() {
       new Tickets().Import();
     },
-    exportToJSON(){
+    exportToJSON() {
       new Tickets().ExportToJSON();
     },
-    exportToCSV(){
+    exportToCSV() {
       new Tickets().ExportToCSV();
-    }
+    },
   },
 };
 </script>

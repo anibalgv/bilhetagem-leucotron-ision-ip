@@ -819,7 +819,7 @@
                 </router-link>
               </li>
               <li class="nav-main-item">
-                <router-link to="/" class="nav-main-link">
+                <router-link to="/configurations" class="nav-main-link">
                   <i class="nav-main-link-icon fa fa-wrench"></i>
                   <span class="nav-main-link-name">Config</span>
                 </router-link>
