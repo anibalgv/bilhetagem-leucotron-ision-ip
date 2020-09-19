@@ -1,17 +1,19 @@
+import Configurations from "./configurations";
 var ftp = require("basic-ftp");
 
 export default class Ftp {
   constructor() { }
 
   async Connect() {
+    const configuration = new Configurations().getConfiguration();
     const client = new ftp.Client();
     client.ftp.verbose = true;
     try {
       await client.access({
-        host: '192.168.0.252',
-        user: 'admin',
-        password: 'master',
-        port: 21,
+        host: configuration.ftp_host,
+        user: configuration.ftp_user,
+        password: configuration.ftp_password,
+        port: configuration.ftp_port,
       });
       console.log('[FTP][CONNECT]\n', client);
       return client;
