@@ -22,13 +22,14 @@ function createWindow () {
     useContentSize: true,
     width: 1000,
     titleBarStyle: "hiddenInset",
-    transparent: true,
-    frame: false,
-    darkTheme: true
+    // transparent: true,
+    // frame: false,
+    // darkTheme: true
   });
 
   mainWindow.loadURL(winURL);
   mainWindow.setMenuBarVisibility(false);
+  mainWindow.openDevTools();
 
   mainWindow.on('closed', () => {
     mainWindow = null
