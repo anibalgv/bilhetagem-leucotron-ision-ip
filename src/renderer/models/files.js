@@ -36,8 +36,9 @@ export default class Files {
       }, function (file) {
         fs.writeFileSync(file, _fileContent );
       });
+      console.log('[FILES][SAVEDIALOG]');
     } catch (error) {
-      console.log('[FILES][DOWNLOAD] -> ERROR\n', error);
+      console.log('[FILES][SAVEDIALOG] -> ERROR\n', error);
     }
   }
 

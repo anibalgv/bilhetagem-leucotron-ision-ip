@@ -21,6 +21,7 @@ export default class Tickets {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
       var rows = sqlite.run("SELECT * FROM tickets");
       sqlite.close();
+      console.log('[TICKETS][ALL]');
       return rows;
     } catch (error) {
       console.log(error);
