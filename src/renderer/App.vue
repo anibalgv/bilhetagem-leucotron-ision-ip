@@ -26,17 +26,17 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="assets/media/favicons/favicon.png" />
+    <link rel="shortcut icon" href="static/assets/media/favicons/favicon.png" />
     <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="assets/media/favicons/favicon-192x192.png"
+      href="static/assets/media/favicons/favicon-192x192.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="assets/media/favicons/apple-touch-icon-180x180.png"
+      href="static/assets/media/favicons/apple-touch-icon-180x180.png"
     />
     <!-- END Icons -->
 
@@ -46,10 +46,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     /> -->
-    <link rel="stylesheet" id="css-main" href="assets/css/oneui.css" />
+    <link rel="stylesheet" id="css-main" href="static/assets/css/oneui.css" />
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/amethyst.min.css"> -->
+    <!-- <link rel="stylesheet" id="css-theme" href="static/assets/css/themes/amethyst.min.css"> -->
   </head>
   <body>
     <!-- Page Container -->
@@ -101,7 +101,7 @@
         <div class="content-header border-bottom">
           <!-- User Avatar -->
           <a class="img-link mr-1" href="javascript:void(0)">
-            <img class="img-avatar img-avatar32" src="assets/media/avatars/avatar10.jpg" alt />
+            <img class="img-avatar img-avatar32" src="static/assets/media/avatars/avatar10.jpg" alt />
           </a>
           <!-- END User Avatar -->
 
@@ -245,7 +245,7 @@
                           <div class="mr-3 ml-2 overlay-container overlay-bottom">
                             <img
                               class="img-avatar img-avatar48"
-                              src="assets/media/avatars/avatar6.jpg"
+                              src="static/assets/media/avatars/avatar6.jpg"
                               alt
                             />
                             <span
@@ -263,7 +263,7 @@
                           <div class="mr-3 ml-2 overlay-container overlay-bottom">
                             <img
                               class="img-avatar img-avatar48"
-                              src="assets/media/avatars/avatar15.jpg"
+                              src="static/assets/media/avatars/avatar15.jpg"
                               alt
                             />
                             <span
@@ -281,7 +281,7 @@
                           <div class="mr-3 ml-2 overlay-container overlay-bottom">
                             <img
                               class="img-avatar img-avatar48"
-                              src="assets/media/avatars/avatar6.jpg"
+                              src="static/assets/media/avatars/avatar6.jpg"
                               alt
                             />
                             <span
@@ -299,7 +299,7 @@
                           <div class="mr-3 ml-2 overlay-container overlay-bottom">
                             <img
                               class="img-avatar img-avatar48"
-                              src="assets/media/avatars/avatar7.jpg"
+                              src="static/assets/media/avatars/avatar7.jpg"
                               alt
                             />
                             <span
@@ -317,7 +317,7 @@
                           <div class="mr-3 ml-2 overlay-container overlay-bottom">
                             <img
                               class="img-avatar img-avatar48"
-                              src="assets/media/avatars/avatar9.jpg"
+                              src="static/assets/media/avatars/avatar9.jpg"
                               alt
                             />
                             <span
@@ -684,7 +684,7 @@
                 <a
                   class="dropdown-item d-flex align-items-center justify-content-between font-w500"
                   data-toggle="theme"
-                  data-theme="assets/css/themes/amethyst.min.css"
+                  data-theme="static/assets/css/themes/amethyst.min.css"
                   href="#"
                 >
                   <span>Amethyst</span>
@@ -693,7 +693,7 @@
                 <a
                   class="dropdown-item d-flex align-items-center justify-content-between font-w500"
                   data-toggle="theme"
-                  data-theme="assets/css/themes/city.min.css"
+                  data-theme="static/assets/css/themes/city.min.css"
                   href="#"
                 >
                   <span>City</span>
@@ -702,7 +702,7 @@
                 <a
                   class="dropdown-item d-flex align-items-center justify-content-between font-w500"
                   data-toggle="theme"
-                  data-theme="assets/css/themes/flat.min.css"
+                  data-theme="static/assets/css/themes/flat.min.css"
                   href="#"
                 >
                   <span>Flat</span>
@@ -711,7 +711,7 @@
                 <a
                   class="dropdown-item d-flex align-items-center justify-content-between font-w500"
                   data-toggle="theme"
-                  data-theme="assets/css/themes/modern.min.css"
+                  data-theme="static/assets/css/themes/modern.min.css"
                   href="#"
                 >
                   <span>Modern</span>
@@ -720,7 +720,7 @@
                 <a
                   class="dropdown-item d-flex align-items-center justify-content-between font-w500"
                   data-toggle="theme"
-                  data-theme="assets/css/themes/smooth.min.css"
+                  data-theme="static/assets/css/themes/smooth.min.css"
                   href="#"
                 >
                   <span>Smooth</span>
@@ -926,7 +926,7 @@
               >
                 <img
                   class="rounded-circle"
-                  src="assets/media/avatars/avatar10.jpg"
+                  src="static/assets/media/avatars/avatar10.jpg"
                   alt="Header Avatar"
                   style="width: 21px;"
                 />
@@ -940,7 +940,7 @@
                 <div class="p-3 text-center bg-primary-dark rounded-top">
                   <img
                     class="img-avatar img-avatar48 img-avatar-thumb"
-                    src="assets/media/avatars/avatar10.jpg"
+                    src="static/assets/media/avatars/avatar10.jpg"
                     alt
                   />
                   <p class="mt-2 mb-0 text-white font-w500">Adam Smith</p>
@@ -1194,7 +1194,7 @@
           <div class="row font-size-sm">
             <div class="col-sm-6 order-sm-2 py-1 text-center text-sm-right">
               <a href="https://executar.net" target="_blank">
-                <img class src="assets/media/favicons/executar-net-logo-gray.png" alt />
+                <img class src="static/assets/media/favicons/executar-net-logo-gray.png" alt />
               </a>
             </div>
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
@@ -1303,27 +1303,27 @@
     OneUI JS Core
     
     Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-    to handle those dependencies through webpack. Please check out assets/_es6/main/bootstrap.js for more info.
+    to handle those dependencies through webpack. Please check out static/assets/_es6/main/bootstrap.js for more info.
     
-    If you like, you could also include them separately directly from the assets/js/core folder in the following
+    If you like, you could also include them separately directly from the static/assets/js/core folder in the following
     order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
     
-    assets/js/core/jquery.min.js
-    assets/js/core/bootstrap.bundle.min.js
-    assets/js/core/simplebar.min.js
-    assets/js/core/jquery-scrollLock.min.js
-    assets/js/core/jquery.appear.min.js
-    assets/js/core/js.cookie.min.js
+    static/assets/js/core/jquery.min.js
+    static/assets/js/core/bootstrap.bundle.min.js
+    static/assets/js/core/simplebar.min.js
+    static/assets/js/core/jquery-scrollLock.min.js
+    static/assets/js/core/jquery.appear.min.js
+    static/assets/js/core/js.cookie.min.js
     -->
-    <script type="application/javascript" src="assets/js/core/jquery.min.js"></script>
-    <script type="application/javascript" src="assets/js/oneui.core.min.js"></script>
+    <script type="application/javascript" src="static/assets/js/core/jquery.min.js"></script>
+    <script type="application/javascript" src="static/assets/js/oneui.core.min.js"></script>
     <!--
     OneUI JS
     
     Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-    webpack is putting everything together at assets/_es6/main/app.js
+    webpack is putting everything together at static/assets/_es6/main/app.js
     -->
-    <script type="application/javascript" src="assets/js/oneui.app.min.js"></script>
+    <script type="application/javascript" src="static/assets/js/oneui.app.min.js"></script>
   </body>
 </div>
 </template>
