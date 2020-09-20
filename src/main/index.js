@@ -24,7 +24,8 @@ function createWindow () {
     titleBarStyle: "hiddenInset",
     // transparent: true,
     // frame: false,
-    // darkTheme: true
+    // darkTheme: true,
+    resizable: false
   });
 
   mainWindow.loadURL(winURL);

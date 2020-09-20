@@ -45,7 +45,7 @@
     <!-- <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    /> -->
+    />-->
     <link rel="stylesheet" id="css-main" href="static/assets/css/oneui.css" />
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
@@ -807,10 +807,28 @@
                 </router-link>
               </li>
               <li class="nav-main-item">
-                <router-link to="/tickets/report-today" class="nav-main-link">
+                <a
+                  class="nav-main-link nav-main-link-submenu"
+                  data-toggle="submenu"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  href="#"
+                >
                   <i class="nav-main-link-icon fa fa-newspaper"></i>
                   <span class="nav-main-link-name">Reports</span>
-                </router-link>
+                </a>
+                <ul class="nav-main-submenu">
+                  <li class="nav-main-item">
+                    <router-link to="/tickets/report-today" class="nav-main-link">
+                      <span class="nav-main-link-name">Today</span>
+                    </router-link>
+                  </li>
+                  <li class="nav-main-item">
+                    <router-link to="/tickets/reports-month" class="nav-main-link">
+                      <span class="nav-main-link-name">Month</span>
+                    </router-link>
+                  </li>
+                </ul>
               </li>
               <li class="nav-main-item">
                 <router-link to="/import" class="nav-main-link">
@@ -824,7 +842,6 @@
                   <span class="nav-main-link-name">Config</span>
                 </router-link>
               </li>
-              
             </ul>
           </div>
           <!-- END Side Navigation -->
@@ -1092,13 +1109,13 @@
             >
               <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
             </button>
-            <button class="btn btn-sm btn-dual ml-2" v-on:click="minimizeWindow" >
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="minimizeWindow">
               <i class="fa fa-window-minimize"></i>
             </button>
-            <button class="btn btn-sm btn-dual ml-2" v-on:click="maximizeWindow" >
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="maximizeWindow">
               <i class="fa fa-window-maximize"></i>
             </button>
-            <button class="btn btn-sm btn-dual ml-2" v-on:click="closeWindow" >
+            <button class="btn btn-sm btn-dual ml-2" v-on:click="closeWindow">
               <i class="fa fa-window-close"></i>
             </button>
             <!-- END Toggle Side Overlay -->
@@ -1177,12 +1194,12 @@
         <!-- END Hero -->
 
         <!-- Page Content -->
-        <div class="content"  style="flex: 1">
+        <div class="content" style="flex: 1">
           <!-- <h2 class="content-heading">
             Your Content
             <small>Subtitle</small>
           </h2>-->
-            <router-view></router-view>
+          <router-view></router-view>
         </div>
         <!-- END Page Content -->
       </main>
@@ -1198,7 +1215,7 @@
               </a>
             </div>
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-left">
-              <a class="font-w600" href="https://executar.net" target="_blank"> </a> &nbsp;
+              <a class="font-w600" href="https://executar.net" target="_blank"></a> &nbsp;
               <!-- <span data-toggle="year-copy" class="disabled"></span> -->
             </div>
           </div>
@@ -1332,20 +1349,20 @@
 import { remote } from "electron";
 export default {
   name: "electron-vue",
-  methods:{
-    closeWindow(){
+  methods: {
+    closeWindow() {
       remote.getCurrentWindow().close();
     },
-    minimizeWindow(){
+    minimizeWindow() {
       remote.getCurrentWindow().minimize();
     },
-    maximizeWindow(){
-      if(remote.getCurrentWindow().isMaximized()){
-        remote.getCurrentWindow().unmaximize()
-      }else{
+    maximizeWindow() {
+      if (remote.getCurrentWindow().isMaximized()) {
+        remote.getCurrentWindow().unmaximize();
+      } else {
         remote.getCurrentWindow().maximize();
       }
-    }
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="x">
     <main>
-      <h1> HOME </h1>
+      <!-- <img src="static/assets/media/favicons/favicon_executar.png" alt=""> -->
     </main>
   </div>
 </template>
