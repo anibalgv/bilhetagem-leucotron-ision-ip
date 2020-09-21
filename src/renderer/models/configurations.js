@@ -29,4 +29,20 @@ export default class Configurations {
 
   }
 
+  getDefaultConfigurarion(){
+    try {
+      return {
+        "app_first_run": true,
+        "app_auto_import": false,
+        "app_auto_import_interval": 1,
+        "ftp_host": "192.168.0.252",
+        "ftp_user": "admin",
+        "ftp_password": "master",
+        "ftp_port": "21"
+      };
+    } catch (error) {
+      console.log('[CONFIGURATIONS][GETDEFAULTCONFIGURATION]', error);
+    }
+  }
+
 }

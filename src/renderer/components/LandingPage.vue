@@ -14,7 +14,13 @@
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
-      }
+      },
+      verifyConfigurationFile(){
+        
+      },
+    },
+    mounted: function(){
+
     }
   }
 </script>
