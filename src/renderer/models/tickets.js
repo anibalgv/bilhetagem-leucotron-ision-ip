@@ -104,4 +104,23 @@ export default class Tickets {
     }
   }
 
+  getByYearMonthDay(_year, _month, _day){
+    try {
+      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      let query ='SELECT * FROM TICKETS ';
+      if(_year)
+        query += " WHERE STRFTIME('%Y', `data`) = " + `'${_year}'`
+      if(_year && _month)
+        query += " AND STRFTIME('%m', `data`) = " + `'${_month}'`;
+      if(_year && _month && _day)
+        query += " AND STRFTIME('%d', `data`) = " + `'${_day}'`;
+      const tickets = sqlite.run(query)
+      sqlite.close();
+      console.log('[TICKETS][GETBYMONTH] ', query);
+      return tickets;  
+    } catch (error) {
+      console.log('[TICKETS][GETBYMONTH] -> ERROR\n', error);
+    }
+  }
+
 }
