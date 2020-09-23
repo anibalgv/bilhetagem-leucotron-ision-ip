@@ -54,6 +54,7 @@
     "axios": "^0.18.0",
     "basic-ftp": "^4.6.2",
     "bootstrap": "^4.5.2",
+    "bootstrap-vue": "^2.17.3",
     "jquery": "^3.5.1",
     "json2csv": "^5.0.1",
     "popper.js": "^1.16.1",

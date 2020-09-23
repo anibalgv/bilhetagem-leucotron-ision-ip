@@ -47,6 +47,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
     />-->
     <link rel="stylesheet" id="css-main" href="static/assets/css/oneui.css" />
+    <!-- <link rel="stylesheet" href="static/assets/js/plugins/datatables/dataTables.bootstrap4.css" /> -->
+    <!-- <link rel="stylesheet" href="static/assets/js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css"> -->
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="static/assets/css/themes/amethyst.min.css"> -->
@@ -825,7 +827,7 @@
                   </li>
                   <li class="nav-main-item">
                     <router-link to="/tickets/reports-month" class="nav-main-link">
-                      <span class="nav-main-link-name">Month</span>
+                      <span class="nav-main-link-name">Select date</span>
                     </router-link>
                   </li>
                 </ul>
@@ -1332,7 +1334,7 @@
     static/assets/js/core/jquery.appear.min.js
     static/assets/js/core/js.cookie.min.js
     -->
-    <script type="application/javascript" src="static/assets/js/core/jquery.min.js"></script>
+    <!-- <script type="application/javascript" src="static/assets/js/core/jquery.min.js"></script> -->
     <script type="application/javascript" src="static/assets/js/oneui.core.min.js"></script>
     <!--
     OneUI JS
@@ -1341,6 +1343,17 @@
     webpack is putting everything together at static/assets/_es6/main/app.js
     -->
     <script type="application/javascript" src="static/assets/js/oneui.app.min.js"></script>
+     <!-- Page JS Plugins -->
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/dataTables.buttons.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.print.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.html5.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.flash.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.colVis.min.js"></script>
+
+        <!-- Page JS Code -->
+        <script type="application/javascript" src="static/assets/_es6/pages/be_tables_datatables.js"></script>
   </body>
 </div>
 </template>

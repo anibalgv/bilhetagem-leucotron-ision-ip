@@ -116,11 +116,29 @@ export default class Tickets {
         query += " AND STRFTIME('%d', `data`) = " + `'${_day}'`;
       const tickets = sqlite.run(query)
       sqlite.close();
-      console.log('[TICKETS][GETBYMONTH] ', query);
+      console.log('[TICKETS][GETBYMONTH]\n', tickets);
       return tickets;  
     } catch (error) {
       console.log('[TICKETS][GETBYMONTH] -> ERROR\n', error);
     }
+  }
+
+  getYears(){
+    try {
+      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      const years = sqlite.run("select strftime('%Y', `data`) AS `year` from tickets GROUP BY strftime('%Y', `data`)");
+      let temp = [];
+      years.forEach(year => {
+        if(year){
+          temp.push(Object.values(year));
+        }
+      });
+      console.log('[TICKETS][GETYEARS]\n', temp );
+      return temp;
+    } catch (error) {
+      console.log('[TICKETS][GETYEARS] -> ERROR\n', error);
+    }
+    
   }
 
 }
