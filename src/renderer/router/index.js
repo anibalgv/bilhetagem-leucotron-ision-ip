@@ -26,7 +26,7 @@ export default new Router({
       component: require('@/pages/tickets/reports-month').default
     },
     {
-      path: '/configurations/',
+      path: '/configurations',
       name: 'configurations',
       component: require('@/pages/configurations').default
     },

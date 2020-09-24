@@ -1344,16 +1344,16 @@
     -->
     <script type="application/javascript" src="static/assets/js/oneui.app.min.js"></script>
      <!-- Page JS Plugins -->
-        <script type="application/javascript" src="static/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <!-- <script type="application/javascript" src="static/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="application/javascript" src="static/assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/dataTables.buttons.min.js"></script>
         <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.print.min.js"></script>
         <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.html5.min.js"></script>
         <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.flash.min.js"></script>
-        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.colVis.min.js"></script>
+        <script type="application/javascript" src="static/assets/js/plugins/datatables/buttons/buttons.colVis.min.js"></script> -->
 
         <!-- Page JS Code -->
-        <script type="application/javascript" src="static/assets/_es6/pages/be_tables_datatables.js"></script>
+        <!-- <script type="application/javascript" src="static/assets/_es6/pages/be_tables_datatables.js"></script> -->
   </body>
 </div>
 </template>

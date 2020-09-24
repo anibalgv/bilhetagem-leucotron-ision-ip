@@ -20,6 +20,7 @@
           INTERVAL
           <input
             type="number"
+            min="1"
             name="app_auto_import"
             id="app_auto_impor"
             class="form-control form-control-sm"

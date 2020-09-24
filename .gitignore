@@ -9,3 +9,4 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 .favorites.json
+!node_modules\sql.js\js\sql.js

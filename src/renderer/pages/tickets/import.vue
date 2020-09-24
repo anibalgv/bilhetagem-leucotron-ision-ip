@@ -3,13 +3,22 @@
     <div class="block-header block-header-default">
       <h3 class="block-title">IMPORT/EXPORT DATA</h3>
       <div class="block-options">
-        <button type="button" class="btn-block-option">
+         
+        <span v-if="configuration.app_auto_import">
+          <i  class="fa fa-circle text-success"> </i> <small>AUTO ON</small>
+          &nbsp; <i class="fa fa-clock text-primary">  </i> {{ configuration.app_auto_import_interval }} H
+        </span>
+        <span v-else>
+          <i class="fa fa-circle text-muted"> </i> <small>AUTO OFF</small>
+        </span>
+        
+        <router-link to="/configurations" class="btn-block-option">
           <i class="si si-settings"></i>
-        </button>
+        </router-link>
       </div>
     </div>
 
-    <div class="block-content" style="background-color:#ffffff ">
+    <div class="block-content" style="background-color: #ffffff">
       <div class id>
         <div class="row">
           <div class="col-md-6 col-xl-6">
@@ -37,9 +46,9 @@
                       <div class="font-size-h4 font-w700">
                         <span class="text-muted"></span> IMPORT
                       </div>
-                      <div
-                        class="font-size-sm text-muted text-uppercase"
-                      >FROM APLIANCE TO LOCAL DATABASE</div>
+                      <div class="font-size-sm text-muted text-uppercase">
+                        FROM APLIANCE TO LOCAL DATABASE
+                      </div>
                     </div>
                   </a>
                 </div>
@@ -72,7 +81,9 @@
                       <div class="font-size-h4 font-w700">
                         <span class="text-muted"></span> EXPORT
                       </div>
-                      <div class="font-size-sm text-muted text-uppercase">TO CSV FILE</div>
+                      <div class="font-size-sm text-muted text-uppercase">
+                        TO CSV FILE
+                      </div>
                     </div>
                   </a>
                 </div>
@@ -80,7 +91,7 @@
             </div>
           </div>
 
-          <div class="col-md-3 col-xl-3" style="margin-bottom:35px;">
+          <div class="col-md-3 col-xl-3" style="margin-bottom: 35px">
             <div>
               <div class>
                 <div class="block-content">
@@ -105,7 +116,9 @@
                       <div class="font-size-h4 font-w700">
                         <span class="text-muted"></span> EXPORT
                       </div>
-                      <div class="font-size-sm text-muted text-uppercase">TO JSON FILE</div>
+                      <div class="font-size-sm text-muted text-uppercase">
+                        TO JSON FILE
+                      </div>
                     </div>
                   </a>
                 </div>
@@ -134,6 +147,31 @@ export default {
     exportToCSV() {
       new Tickets().ExportToCSV();
     },
+    autoImport() {
+      this.configuration = new Configurations().getConfiguration();
+      if (
+        this.configuration.app_auto_import && this.configuration.app_auto_import_interval > 0 ) {
+        this.timer = setInterval(() => {
+          new Tickets().Import();
+        }, this.configuration.app_auto_import_interval * 60000);
+        console.log("setInterval :", this.timer);
+      }
+    },
+  },
+  data: function () {
+    return {
+      configuration: {},
+      timer: 0,
+    };
+  },
+  mounted: function () {
+    this.autoImport();
+  },
+  beforeDestroy: function () {
+    if (this.timer) {
+      console.log("clearInterval(this.timer) :", clearInterval(this.timer));
+      clearInterval(this.timer);
+    }
   },
 };
 </script>
