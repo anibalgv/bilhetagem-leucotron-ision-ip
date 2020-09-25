@@ -5,13 +5,13 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'landing-page',
+    //   component: require('@/components/LandingPage').default
+    // },
     {
       path: '/',
-      name: 'landing-page',
-      component: require('@/components/LandingPage').default
-    },
-    {
-      path: '/import',
       name: 'import',
       component: require('@/pages/tickets/import').default
     },
@@ -32,7 +32,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/import/'
+      redirect: '/'
     }
   ]
 })
