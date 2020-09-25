@@ -33,6 +33,7 @@ export default class Ftp {
       await client.cd('C');
       let download = await client.downloadTo(__dirname + "/../downloads/bilhet", _sourceFile);
       console.log('[FTP][DOWNLOAD]\n', download);
+      client.close();
       return true;
     } catch (error) {
       console.log('[FTP][DOWNLOAD] -> ERROR\n', error);

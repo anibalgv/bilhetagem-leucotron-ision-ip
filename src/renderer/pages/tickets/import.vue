@@ -135,11 +135,18 @@
 import CSV from "../../models/csv";
 import Tickets from "../../models/tickets";
 import Configurations from "../../models/configurations";
+import { alert, success, defaultModules, Stack } from '@pnotify/core';
+import '@pnotify/core/dist/PNotify.css';
+import * as PNotifyBootstrap4 from '@pnotify/bootstrap4';
+defaultModules.set(PNotifyBootstrap4, {});
 
 export default {
   methods: {
     async Import() {
-      new Tickets().Import();
+      if(new Tickets().Import())
+        success({title:'IMPORTS', text:'SUCCESS', type: 'success'});
+      else
+        alert({title:'IMPORTS', text:'ERROR', type: 'alert' , stack: new Stack({dir1: 'down', firstpos1: 1})})
     },
     exportToJSON() {
       new Tickets().ExportToJSON();
@@ -152,7 +159,7 @@ export default {
       if (
         this.configuration.app_auto_import && this.configuration.app_auto_import_interval > 0 ) {
         this.timer = setInterval(() => {
-          new Tickets().Import();
+          this.Import();
         }, this.configuration.app_auto_import_interval * 60000);
       }
     },

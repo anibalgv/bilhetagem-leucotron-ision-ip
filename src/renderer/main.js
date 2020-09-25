@@ -5,8 +5,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 window.jQuery = window.$ = require('jquery');
-import 'bootstrap';
+// import 'bootstrap';
 import 'bootstrap-vue';
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false

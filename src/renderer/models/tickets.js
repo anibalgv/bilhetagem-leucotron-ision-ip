@@ -34,7 +34,6 @@ export default class Tickets {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
       for (let i = 0; i < _ticketsJSON.length; i++) {
         const ticket = _ticketsJSON[i];
-        console.log('ticket :', ticket);
         if (ticket.equipamento) {
           ticket['data'] = ticket.data_inicio.split('/').reverse().join('-');
           ticket['tipo'] = Object.values(new Calls().getAtributosInfo(ticket.atributo_ligacao).tipo)[0];
@@ -45,8 +44,10 @@ export default class Tickets {
         }
       }
       sqlite.close();
+      return true;
     } catch (error) {
       console.log('[TICKETS][INSERT] -> ERROR\n', error);
+      return false;
     }
   }
 
@@ -59,10 +60,10 @@ export default class Tickets {
       }
       const bilhet = new Files().Read(__dirname + '/../downloads/bilhet');
       const ticketsJSON = new CSV().ConvertToJSON(this.getKeys(), bilhet);
-      this.Insert(ticketsJSON);
+      let result = this.Insert(ticketsJSON);
       // new Files().Delete('./downloads/bilhet');
       // await new Ftp().Delete();
-      return true;
+      return result;
     } catch (error) {
       console.log('[TICKETS][IMPORT] -> ERROR\n', error);
       return false;
@@ -93,7 +94,7 @@ export default class Tickets {
     }
   }
 
-  ExportToCSV(){
+  ExportToCSV() {
     try {
       const tickets = this.All();
       const ticketsCSV = new JSONS().ConverToCSV(tickets);
@@ -104,41 +105,52 @@ export default class Tickets {
     }
   }
 
-  getByYearMonthDay(_year, _month, _day){
+  getByYearMonthDay(_year, _month, _day) {
     try {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
-      let query ='SELECT * FROM TICKETS ';
-      if(_year)
+      let query = 'SELECT * FROM TICKETS ';
+      if (_year)
         query += " WHERE STRFTIME('%Y', `data`) = " + `'${_year}'`
-      if(_year && _month)
+      if (_year && _month)
         query += " AND STRFTIME('%m', `data`) = " + `'${_month}'`;
-      if(_year && _month && _day)
+      if (_year && _month && _day)
         query += " AND STRFTIME('%d', `data`) = " + `'${_day}'`;
       const tickets = sqlite.run(query)
       sqlite.close();
       console.log('[TICKETS][GETBYMONTH]\n', tickets);
-      return tickets;  
+      return tickets;
     } catch (error) {
       console.log('[TICKETS][GETBYMONTH] -> ERROR\n', error);
     }
   }
 
-  getYears(){
+  getYears() {
     try {
       sqlite.connect(__dirname + '/../database/tickets.sqlite');
       const years = sqlite.run("select strftime('%Y', `data`) AS `year` from tickets GROUP BY strftime('%Y', `data`)");
       let temp = [];
       years.forEach(year => {
-        if(year){
+        if (year) {
           temp.push(Object.values(year));
         }
       });
-      console.log('[TICKETS][GETYEARS]\n', temp );
+      console.log('[TICKETS][GETYEARS]\n', temp);
       return temp;
     } catch (error) {
       console.log('[TICKETS][GETYEARS] -> ERROR\n', error);
     }
-    
+  }
+
+  getByNumeroExterno(_numeroExterno) {
+    try {
+      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      const tickets = sqlite.run("SELECT * FROM tickets WHERE numero_externo LIKE('%', ? , '%')", [_numeroExterno]);
+      sqlite.close();
+      console.log('[TICKETS][GETBYNUMEROEXTERNO]', _numeroExterno);
+      return tickets;
+    } catch (error) {
+      console.log('[TICKETS][GETBYNUMEROEXTERNO] -> ERROR\n', error);
+    }
   }
 
 }

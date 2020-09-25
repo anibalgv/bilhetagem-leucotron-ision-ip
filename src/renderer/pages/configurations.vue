@@ -85,6 +85,13 @@
 
 <script>
 import Configurations from "../models/configurations";
+import { alert, success, defaultModules, Stack } from '@pnotify/core';
+import '@pnotify/core/dist/PNotify.css';
+import * as PNotifyBootstrap4 from '@pnotify/bootstrap4';
+defaultModules.set(PNotifyBootstrap4, {});
+// import * as PNotifyDesktop from '@pnotify/desktop';
+// defaultModules.set(PNotifyDesktop, {});
+
 export default {
   name: "configurations",
   data: function () {
@@ -99,7 +106,9 @@ export default {
     setConfig: function () {
       let saved = new Configurations().setConfiguration(this.configuration);
       if (saved) {
-        console.log("SAVED");
+        success({title:'CONFIGURATIONS', text:'SAVE OK', type: 'success'});
+        this.$router.push('imports');
+
       }
     },
   },
