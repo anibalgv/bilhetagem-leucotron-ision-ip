@@ -154,7 +154,6 @@ export default {
         this.timer = setInterval(() => {
           new Tickets().Import();
         }, this.configuration.app_auto_import_interval * 60000);
-        console.log("setInterval :", this.timer);
       }
     },
   },
@@ -169,7 +168,6 @@ export default {
   },
   beforeDestroy: function () {
     if (this.timer) {
-      console.log("clearInterval(this.timer) :", clearInterval(this.timer));
       clearInterval(this.timer);
     }
   },
