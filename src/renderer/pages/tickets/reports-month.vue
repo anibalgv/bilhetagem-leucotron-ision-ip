@@ -27,6 +27,11 @@
         <button data-month="11" type="button" class="month btn btn-info">NOV</button>
         <button data-month="12" type="button" class="month btn btn-info">DEC</button>
       </div>
+      <div  v-if="selectedDate.year || selectedDate.month || selectedDate.day" class="btn-group btn-group-sm mr-1 mb-1 pull-right">
+        <button class=" btn btn-warning">
+          {{ monthText[selectedDate.month-1] || ''}} {{selectedDate.day}} {{selectedDate.year}}
+        </button>
+      </div>
     </div>
     <div class="row">
       <div class="btn-group btn-group-sm mr-2 mb-2" v-on:click="setDay">
@@ -105,8 +110,7 @@
 
 <script>
 import Tickets from "../../models/tickets";
-// const query = new Tickets().getByMonth('2020','06', null);
-// console.log('query:', query);
+import Dates from "../../models/dates";
 
 export default {
   name: "reports-month",
@@ -153,11 +157,13 @@ export default {
       selectedDate: { day: "", month: "", year: "" },
       tickets: [],
       years: [],
+      monthText: [],
     };
   },
   mounted: function () {
     // this.getTickets();
     this.getYears();
+    this.monthText = new Dates().getMonthsText();
   },
 };
 
