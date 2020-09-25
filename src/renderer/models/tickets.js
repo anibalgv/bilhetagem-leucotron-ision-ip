@@ -55,8 +55,8 @@ export default class Tickets {
     try {
       console.log('[TICKETS][IMPORT]');
       const download = await new Ftp().Download('bilhet00');
-      if (!download) {
-        return
+      if (download == false) {
+        return false;
       }
       const bilhet = new Files().Read(__dirname + '/../downloads/bilhet');
       const ticketsJSON = new CSV().ConvertToJSON(this.getKeys(), bilhet);

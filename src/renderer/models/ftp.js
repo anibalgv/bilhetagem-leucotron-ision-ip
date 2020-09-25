@@ -40,8 +40,6 @@ export default class Ftp {
       client.close();
       return false;
     }
-    finally {
-    }
   }
 
   async Delete() {

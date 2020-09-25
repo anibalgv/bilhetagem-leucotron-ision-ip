@@ -106,7 +106,7 @@ export default {
     setConfig: function () {
       let saved = new Configurations().setConfiguration(this.configuration);
       if (saved) {
-        success({title:'CONFIGURATIONS', text:'SAVE OK', type: 'success'});
+        success({title:'CONFIGURATIONS', text:'SAVE SUCCESS', type: 'success'});
         this.$router.push('imports');
 
       }
