@@ -833,6 +833,12 @@
                 </ul>
               </li>
               <li class="nav-main-item">
+                <router-link to="/tickets/report-today" class="nav-main-link">
+                  <i class="nav-main-link-icon si si-settings"></i>
+                  <span class="nav-main-link-name">today</span>
+                </router-link>
+              </li>
+              <li class="nav-main-item">
                 <router-link to="/import" class="nav-main-link">
                   <i class="nav-main-link-icon fa fa-server"></i>
                   <span class="nav-main-link-name">Inport/Export</span>

@@ -25,7 +25,7 @@
           <td>{{ticket.numero_externo}}</td>
           <td>{{ticket.atributo_ligacao}}</td>
           <td>{{ticket.tipo}}</td>
-          <td>{{ticket.atributo}}</td>
+          <td :class="ticket.atributo == 'NAO ATENDIDA' ?  'bg-danger-light' : ticket.atributo == 'OCUPADA/INDISPONIVEL' ? 'bg-warning-light' : 'bg-success-light' ">{{ticket.atributo}}</td>
           <td>{{ticket.nome_usuario}}</td>
         </tr>
       </tBody>
@@ -42,7 +42,7 @@ export default {
   methods: {
     getTodayTickets: function () {
       const now = new Date();
-      const day = now.getDate();
+      const day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
       const month =
         now.getMonth() + 1 < 10
           ? "0" + (now.getMonth() + 1)
