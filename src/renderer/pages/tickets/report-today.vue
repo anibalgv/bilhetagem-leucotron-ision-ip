@@ -1,7 +1,17 @@
 <template>
   <div id="report-today">
     <div class="row" style="margin-top: -20px">
-      <div class="form-inline col-md-12">
+      <!-- <div class="form-inline col-md-12">
+        <label for="" class="text "> RAMAL/NUMERO EXTERNO </label>
+        <input
+          type="text"
+          id="input-search"
+          v-on:change="search"
+          class="form-control form-control-sm col-4"
+          placeholder="type a number and press enter"
+        />
+      </div> -->
+      <div class="form-inline col-md-12" >
         <!-- <label for="" class="control-label"> SEARCH &nbsp;</label> -->
         <input
           type="radio"
@@ -30,55 +40,31 @@
         />
       </div>
     </div>
-    <table
-      class="table table-sm table-striped small table-hover"
-      id="tableFixHead"
-      style="margin-top: 10px"
-    >
+    <table class="table table-sm table-striped small table-hover" style="margin-top: 10px" >
       <thead>
         <th>DATA</th>
         <th>HORA</th>
         <th>RAMAL</th>
-        <th>LIGACAO</th>
-        <th>ATENDIMENTO</th>
-        <th>Nº EXTERNO</th>
+        <th>NOME USUARIO</th>
         <th></th>
         <th>TIPO</th>
+        <th>Nº EXTERNO</th>
         <th>ATRIBUTO</th>
-        <th>NOME USUARIO</th>
+        <th>ATENDIMENTO</th>
+        <th>LIGACAO</th>
       </thead>
       <tBody>
         <tr v-for="ticket in tickets" :key="ticket.id">
           <td>{{ ticket.data_inicio }}</td>
           <td align="center">{{ ticket.hora_inicio }}</td>
           <td align="center">{{ ticket.responsavel }}</td>
-          <td align="center">
-            {{
-              ticket.tempo_ligacao == "00:00:00" ? null : ticket.tempo_ligacao
-            }}
-          </td>
-          <td align="center">
-            {{
-              ticket.tempo_atendimento == "00:00:00"
-                ? null
-                : ticket.tempo_atendimento
-            }}
-          </td>
-          <td>{{ ticket.numero_externo }}</td>
+          <td>{{ ticket.nome_usuario }}</td>
           <td>{{ ticket.atributo_ligacao }}</td>
           <td>{{ ticket.tipo }}</td>
-          <td
-            :class="
-              ticket.atributo == 'NAO ATENDIDA'
-                ? 'bg-danger-light'
-                : ticket.atributo == 'OCUPADA/INDISPONIVEL'
-                ? 'bg-warning-light'
-                : 'bg-success-light'
-            "
-          >
-            {{ ticket.atributo }}
-          </td>
-          <td>{{ ticket.nome_usuario }}</td>
+          <td>{{ ticket.numero_externo }}</td>
+          <td :class=" ticket.atributo == 'NAO ATENDIDA' ? 'bg-danger-light' : ticket.atributo == 'OCUPADA/INDISPONIVEL' ? 'bg-warning-light' : 'bg-success-light' " > {{ ticket.atributo }} </td>
+          <td align="center"> {{ ticket.tempo_atendimento == "00:00:00" ? null : ticket.tempo_atendimento }} </td>
+          <td align="center"> {{ ticket.tempo_ligacao == "00:00:00" ? null : ticket.tempo_ligacao }} </td>
         </tr>
       </tBody>
     </table>
@@ -95,10 +81,7 @@ export default {
     getTodayTickets: function () {
       const now = new Date();
       const day = now.getDate() < 10 ? "0" + now.getDate() : now.getDate();
-      const month =
-        now.getMonth() + 1 < 10
-          ? "0" + (now.getMonth() + 1)
-          : now.getMonth() + 1;
+      const month = now.getMonth() + 1 < 10 ? "0" + (now.getMonth() + 1) : now.getMonth() + 1;
       const year = now.getFullYear();
       const today = `${year}-${month}-${day}`;
       const tickets = new Tickets().getByDate(today, today);
@@ -110,14 +93,18 @@ export default {
       let trs = document.getElementsByTagName("TR");
       for (let i = 0; i < trs.length; i++) {
         const tr = trs[i];
-        let td = tr.getElementsByTagName("TD")[this.column];
-        if (td) {
-          let tdText = td.textContent || td.innerText;
-          if (tdText.toUpperCase().indexOf(searchText) > -1)
+        let td_col2 = tr.getElementsByTagName("TD")[2];
+        let td_col6 = tr.getElementsByTagName("TD")[6];
+
+        if (td_col2) {
+          let td_col2_text = td_col2.textContent || td_col2.innerText;
+          let td_col6_text = td_col6.textContent || td_col6.innerText;
+          if ((td_col2_text.toUpperCase().indexOf(searchText) > -1) || (td_col6_text.toUpperCase().indexOf(searchText) > -1))
             tr.style.display = "";
           else tr.style.display = "none";
         }
       }
+      
     },
     refresh: function () {
       let input = document.querySelector("#input-search");
