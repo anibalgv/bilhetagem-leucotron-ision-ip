@@ -26,6 +26,7 @@ function createWindow () {
     frame: false,
     // darkTheme: true,
     // resizable: false,
+    title:'ISION-IP',
     webPreferences:{
       nodeIntegration: true,
     }
@@ -34,6 +35,7 @@ function createWindow () {
   mainWindow.loadURL(winURL);
   mainWindow.setMenuBarVisibility(false);
   mainWindow.openDevTools();
+  mainWindow.on("page-title-updated", (event) => event.preventDefault());
 
   mainWindow.on('closed', () => {
     mainWindow = null

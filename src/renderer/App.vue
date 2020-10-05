@@ -979,12 +979,12 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-main-item">
+                <!-- <li class="nav-main-item">
                   <router-link to="/tickets/report-today" class="nav-main-link">
                     <i class="nav-main-link-icon si si-settings"></i>
                     <span class="nav-main-link-name">today</span>
                   </router-link>
-                </li>
+                </li> -->
                 <li class="nav-main-item">
                   <router-link to="/import" class="nav-main-link">
                     <i class="nav-main-link-icon fa fa-server"></i>
@@ -1563,7 +1563,7 @@
 <script>
 import { remote } from "electron";
 export default {
-  name: "electron-vue",
+  name: "Leucotron",
   methods: {
     closeWindow() {
       remote.getCurrentWindow().close();
