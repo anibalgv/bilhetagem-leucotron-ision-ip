@@ -7,6 +7,20 @@ import JSONS from './jsons';
 
 export default class Tickets {
 
+  databasePath = null;
+  bilhetPath = null;
+
+  constructor() {
+    if (process.env.NODE_ENV !== 'development'){
+      this.databasePath = process.cwd() + '/resources/extraResources/tickets.sqlite';
+      this.bilhetPath = process.cwd() + '/resources/extraResources/bilhet';
+    }
+    else{
+      this.databasePath = __dirname + '/../database/tickets.sqlite';
+      this.bilhetPath = __dirname + '/../downloads/bilhet';
+    }
+  }
+
   getKeys() {
     return [
       'equipamento', 'responsavel', 'data_inicio', 'hora_inicio', 'hora_incio_segmento',
@@ -18,7 +32,7 @@ export default class Tickets {
 
   All() {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       var rows = sqlite.run("SELECT * FROM tickets");
       sqlite.close();
       console.log('[TICKETS][ALL]');
@@ -31,7 +45,7 @@ export default class Tickets {
 
   Insert(_ticketsJSON) {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       for (let i = 0; i < _ticketsJSON.length; i++) {
         const ticket = _ticketsJSON[i];
         if (ticket.equipamento) {
@@ -58,7 +72,7 @@ export default class Tickets {
       if (download == false) {
         return false;
       }
-      const bilhet = new Files().Read(__dirname + '/../downloads/bilhet');
+      const bilhet = new Files().Read(this.bilhetPath);
       const ticketsJSON = new CSV().ConvertToJSON(this.getKeys(), bilhet);
       let result = this.Insert(ticketsJSON);
       // new Files().Delete('./downloads/bilhet');
@@ -72,7 +86,7 @@ export default class Tickets {
 
   getByDate(_date_start, _date_end) {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       const tickets = sqlite.run("SELECT *  FROM tickets  WHERE data BETWEEN ? AND ? ;", [_date_start, _date_end]);
       console.log('[TICKETS][GETBYDATE] ', _date_start, _date_end, tickets);
       return tickets;
@@ -107,7 +121,7 @@ export default class Tickets {
 
   getByYearMonthDay(_year, _month, _day) {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       let query = 'SELECT * FROM TICKETS ';
       if (_year)
         query += " WHERE STRFTIME('%Y', `data`) = " + `'${_year}'`
@@ -126,7 +140,7 @@ export default class Tickets {
 
   getYears() {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       const years = sqlite.run("select strftime('%Y', `data`) AS `year` from tickets GROUP BY strftime('%Y', `data`)");
       let temp = [];
       years.forEach(year => {
@@ -143,7 +157,7 @@ export default class Tickets {
 
   getByNumeroExterno(_numeroExterno) {
     try {
-      sqlite.connect(__dirname + '/../database/tickets.sqlite');
+      sqlite.connect(this.databasePath);
       const tickets = sqlite.run("SELECT * FROM tickets WHERE numero_externo LIKE('%', ? , '%')", [_numeroExterno]);
       sqlite.close();
       console.log('[TICKETS][GETBYNUMEROEXTERNO]', _numeroExterno);

@@ -2,7 +2,17 @@ import Configurations from "./configurations";
 var ftp = require("basic-ftp");
 
 export default class Ftp {
-  constructor() { }
+
+  bilhetPath = null;
+
+  constructor() {
+    if (process.env.NODE_ENV !== 'development'){
+      this.bilhetPath = process.cwd() + '/resources/extraResources/bilhet';
+    }
+    else{
+      this.bilhetPath = __dirname + '/../downloads/bilhet';
+    }
+  }
 
   async Connect() {
     const configuration = new Configurations().getConfiguration();
@@ -31,7 +41,7 @@ export default class Ftp {
       if (client == false)
         return false;
       await client.cd('C');
-      let download = await client.downloadTo(__dirname + "/../downloads/bilhet", _sourceFile);
+      let download = await client.downloadTo(this.bilhetPath, _sourceFile);
       console.log('[FTP][DOWNLOAD]\n', download);
       client.close();
       return true;

@@ -18,14 +18,17 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 580,
+    height: 600,
     useContentSize: true,
     width: 1070,
-    titleBarStyle: "hiddenInset",
+    titleBarStyle: "customButtonsOnHover",
     // transparent: true,
-    // frame: false,
+    frame: false,
     // darkTheme: true,
-    resizable: false
+    // resizable: false,
+    webPreferences:{
+      nodeIntegration: true,
+    }
   });
 
   mainWindow.loadURL(winURL);

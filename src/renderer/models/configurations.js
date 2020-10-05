@@ -1,12 +1,19 @@
 import fs from 'fs';
 
 export default class Configurations {
-  constructor() { }
+  resourcePath = null;
+
+  constructor() {
+    if (process.env.NODE_ENV !== 'development')
+      this.resourcePath = process.cwd() + '/resources/extraResources/configurations.json';
+    else
+      this.resourcePath = __dirname + '/../database/configurations.json';
+  }
 
 
   getConfiguration() {
     try {
-      const configurations = fs.readFileSync(__dirname + '/../database/configurations.json');
+      const configurations = fs.readFileSync(this.resourcePath);
       const configuration = JSON.parse(configurations);
       console.log('[CONFIGURATIONS][GETCONFIG]\n', configuration);
       return configuration;
@@ -19,7 +26,7 @@ export default class Configurations {
     try {
       // return;
       const configuration = JSON.stringify(_configuration);
-      fs.writeFileSync(__dirname + '/../database/configurations.json', configuration);
+      fs.writeFileSync(this.resourcePath, configuration);
       console.log('[CONFIGURATIONS][SETCONFIG]\n', configuration);
       return true;
     } catch (error) {
@@ -29,7 +36,7 @@ export default class Configurations {
 
   }
 
-  getDefaultConfigurarion(){
+  getDefaultConfigurarion() {
     try {
       return {
         "app_first_run": true,
