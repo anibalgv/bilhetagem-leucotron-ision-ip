@@ -161,7 +161,7 @@ export default {
         this.configuration.app_auto_import && this.configuration.app_auto_import_interval > 0 ) {
         this.timer = setInterval(() => {
           this.Import();
-        }, this.configuration.app_auto_import_interval * 60000);
+        }, (this.configuration.app_auto_import_interval * 60000) * 60);
       }
     },
   },

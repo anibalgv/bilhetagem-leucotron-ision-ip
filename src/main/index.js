@@ -34,7 +34,7 @@ function createWindow () {
 
   mainWindow.loadURL(winURL);
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.openDevTools();
+  // mainWindow.openDevTools();
   mainWindow.on("page-title-updated", (event) => event.preventDefault());
 
   mainWindow.on('closed', () => {

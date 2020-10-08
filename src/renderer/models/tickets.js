@@ -167,4 +167,18 @@ export default class Tickets {
     }
   }
 
+  getRamais() {
+    try {
+      sqlite.connect(this.databasePath);
+      const tickets = sqlite.run("SELECT responsavel FROM tickets GROUP BY responsavel;");
+      sqlite.close();
+      console.log('[TICKETS][GETRAMAIS]', tickets);
+      return tickets;
+    } catch (error) {
+      console.log('[TICKETS][GETRAMAIS] -> ERROR\n', error);
+    }
+  }
+
+
+
 }

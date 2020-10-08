@@ -62,7 +62,7 @@
           <td>{{ ticket.atributo_ligacao }}</td>
           <td>{{ ticket.tipo }}</td>
           <td>{{ ticket.numero_externo }}</td>
-          <td :class=" ticket.atributo == 'NAO ATENDIDA' ? 'bg-danger-light' : ticket.atributo == 'OCUPADA/INDISPONIVEL' ? 'bg-warning-light' : 'bg-success-light' " > {{ ticket.atributo }} </td>
+          <td> <i :class=" ticket.atributo == 'NAO ATENDIDA' ? 'fa fa-circle text-danger' : ticket.atributo == 'OCUPADA/INDISPONIVEL' ? 'fa fa-circle text-warning' : 'fa fa-circle text-success bg-success-light' " > </i> <span class="text-secondary"> {{ ticket.atributo }} </span></td>
           <td align="center"> {{ ticket.tempo_atendimento == "00:00:00" ? null : ticket.tempo_atendimento }} </td>
           <td align="center"> {{ ticket.tempo_ligacao == "00:00:00" ? null : ticket.tempo_ligacao }} </td>
         </tr>
@@ -124,4 +124,9 @@ export default {
   },
 };
 </script>
+<style>
+.nao{
+  color: 'red'
+}
+</style>
 

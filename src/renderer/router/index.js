@@ -26,6 +26,11 @@ export default new Router({
       component: require('@/pages/tickets/reports-month').default
     },
     {
+      path: '/tickets/reports-spent-time',
+      name: 'tickets-reports-spent-time',
+      component: require('@/views/tickets/tickets-report-spent-time').default
+    },
+    {
       path: '/configurations',
       name: 'configurations',
       component: require('@/pages/configurations').default
