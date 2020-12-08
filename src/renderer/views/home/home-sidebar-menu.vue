@@ -9,7 +9,7 @@
                 <i class="nav-main-link-icon si si-speedometer"></i>
                 <span class="nav-main-link-name">Dashboard</span>
                 </a>-->
-            <router-link to="/" class="nav-main-link">
+            <router-link to="/dashboards/geral" class="nav-main-link">
               <i class="nav-main-link-icon si si-speedometer"></i>
               <span class="nav-main-link-name">Dashboard</span>
             </router-link>

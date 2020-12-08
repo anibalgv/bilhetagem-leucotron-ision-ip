@@ -135,7 +135,7 @@
 import CSV from "../../models/csv";
 import Tickets from "../../models/tickets";
 import Configurations from "../../models/configurations";
-import { alert, success, defaultModules, Stack } from '@pnotify/core';
+import { alert, success, defaultModules, Stack, info } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import * as PNotifyBootstrap4 from '@pnotify/bootstrap4';
 defaultModules.set(PNotifyBootstrap4, {});
@@ -144,6 +144,7 @@ export default {
   methods: {
     async Import() {
       const imported = await new Tickets().Import();
+      info({title:'IMPORTING', text:'AWAIT....'});
       if(imported)
         success({title:'IMPORT', text:'Success'});
       else

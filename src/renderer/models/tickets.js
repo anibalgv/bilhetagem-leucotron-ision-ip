@@ -131,10 +131,10 @@ export default class Tickets {
         query += " AND STRFTIME('%d', `data`) = " + `'${_day}'`;
       const tickets = sqlite.run(query)
       sqlite.close();
-      console.log('[TICKETS][GETBYMONTH]\n', tickets);
+      console.log('[TICKETS][GETBYYEARMONTHDAY]\n', tickets);
       return tickets;
     } catch (error) {
-      console.log('[TICKETS][GETBYMONTH] -> ERROR\n', error);
+      console.log('[TICKETS][GETBYYEARMONTHDAY] -> ERROR\n', error);
     }
   }
 
@@ -179,6 +179,18 @@ export default class Tickets {
     }
   }
 
-
+  getLastRecord() {
+    try {
+      sqlite.connect(this.databasePath);
+      const ticket = sqlite.run("SELECT * FROM tickets ORDER BY id DESC LIMIT 1;");
+      sqlite.close();
+      console.log('[TICKETS][GETLASTRECORD]', ticket[0]);
+      return ticket[0];
+    } catch (error) {
+      console.log('[TICKETS][GETLASTRECORD] -> ERROR\n', error);
+    }
+  }
 
 }
+
+

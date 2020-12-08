@@ -36,6 +36,11 @@ export default new Router({
       component: require('@/pages/configurations').default
     },
     {
+      path: '/dashboards/geral',
+      name: 'dashboards-geral',
+      component: require('@/views/dashboards/dashboard-geral').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

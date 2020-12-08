@@ -17,6 +17,7 @@ export default class Calls {
       { U: 'NAO ATENDIDA' },
     ];
   }
+  
 
   getAllTipos() {
     return [
@@ -42,7 +43,7 @@ export default class Calls {
           return Object.keys(key) == atributo;
         })[0];
       }else{
-        info['atributo'] = '';
+        info['atributo'] = {O: 'ATENDIDA'};
       }
       console.log('[CALLS][GETATRIBUTOSINFO] INFO\n', info);
       return info;

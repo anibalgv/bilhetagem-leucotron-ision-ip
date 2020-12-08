@@ -22,8 +22,7 @@ export default class Dates {
     try {
       if (!_time)
         return;
-      let totalSeconds = 0;
-      let hours = 0, minutes = 0, seconds = 0;
+      let hours = 0, minutes = 0, seconds = 0, totalSeconds = 0;
       let time = _time.split(':');
       hours = (parseInt(time[0]) * 3600);
       minutes = (parseInt(time[1]) * 60);

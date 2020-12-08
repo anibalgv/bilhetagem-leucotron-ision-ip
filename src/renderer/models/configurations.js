@@ -24,7 +24,6 @@ export default class Configurations {
 
   setConfiguration(_configuration) {
     try {
-      // return;
       const configuration = JSON.stringify(_configuration);
       fs.writeFileSync(this.resourcePath, configuration);
       console.log('[CONFIGURATIONS][SETCONFIG]\n', configuration);
