@@ -36,25 +36,11 @@ export default class Reports {
 
   getGeneralCount(_tickets) {
     try {
-      let data = [];
-      let values = [];
-      // let groupedTickets = [];
-      let labels = [];
-
       const groupedTickets = _tickets.reduce(function (r, a) {
         r[a.atributo] = r[a.atributo] || [];
         r[a.atributo].push(a);
         return r;
       }, Object.create(null));
-      
-      // for (let [key, value] of Object.entries(groupedTickets)) {
-      //   console.log(key, value.length);
-      // }
-
-      // Object.entries(groupedTickets).forEach(([key, value])=>{
-      //   console.log(key, value.length);
-      // });
-      
       console.log('[REPORTS][GETGENERALCOUNT]', groupedTickets);
       return groupedTickets;
     } catch (error) {
@@ -63,6 +49,15 @@ export default class Reports {
     }
   }
 
+  getTipoCount(_tickets) {
+    const groupedTickets = _tickets.reduce((prev, current) => {
+      prev[current.tipo] = prev[current.tipo] ? prev[current.tipo] : [];
+      prev[current.tipo].push(current);
+      return prev;
+    }, Object.create(null));
+    console.log('[REPORTS][GETTIPOCOUNT]', groupedTickets);
+    return groupedTickets;
+  }
 
 
 }
