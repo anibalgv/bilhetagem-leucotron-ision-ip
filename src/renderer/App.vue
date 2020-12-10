@@ -640,6 +640,10 @@
     static/assets/js/core/js.cookie.min.js
     -->
       <!-- <script type="application/javascript" src="static/assets/js/core/jquery.min.js"></script> -->
+      
+      <script src="static/assets/js/core/simplebar.min.js" type="application/javascript"></script>
+      <script src="static/assets/js/core/jquery-scrollLock.min.js" type="application/javascript"></script>
+      
       <script
         type="application/javascript"
         src="static/assets/js/oneui.core.min.js"
