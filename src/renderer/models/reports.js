@@ -59,5 +59,15 @@ export default class Reports {
     return groupedTickets;
   }
 
+  SortByCountInverse(_object){
+    return _object.sort((a, b)=>{
+      if(a.count > b.count)
+        return -1;
+      if(a.count < b.count)
+        return 1;
+      return 0 ;
+    });
+  }
+
 
 }
