@@ -143,8 +143,8 @@ defaultModules.set(PNotifyBootstrap4, {});
 export default {
   methods: {
     async Import() {
-      const imported = await new Tickets().Import();
       info({title:'IMPORTING', text:'AWAIT....'});
+      const imported = await new Tickets().Import();
       if(imported)
         success({title:'IMPORT', text:'Success'});
       else
