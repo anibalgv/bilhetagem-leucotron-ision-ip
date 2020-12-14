@@ -1,9 +1,14 @@
 <template>
   <div class="row col-12">
-    <!-- <input type="text" name="" id="filter-term"> -->
+    <!-- {{sortDirection}}
+    {{sortProperty}} -->
+    <!-- {{filterTerm}} -->
+    
+    <input type="text" name="" id="filter-term" v-model="filterTerm" hidden>
+    <button @click="filter" hidden>Filter</button>
     <table class="table table-sm table-striped small table-hover" style="margin-top: 10px" >
       <thead>
-        <th><a href="#" @click="sort($event, 'id')"> DATA  </a></th>
+        <th> <a href="#" @click="sort($event, 'id')"><i :class="[ sortProperty == 'id' ? sortDirection == 'asc' ? 'fa fa-arrow-up small' : 'fa fa-arrow-down' : '' ]"></i> DATA  </a></th>
         <th><a href="#" @click="sort($event, 'hora_inicio')"> HORA  </a></th>
         <th><a href="#" @click="sort($event, 'responsavel')"> RAMAL </a></th>
         <th><a href="#" @click="sort($event, 'nome_usuario')"> NOME USUARIOAL </a></th>
@@ -40,21 +45,40 @@ export default {
   data: function(){
     return {
       sortProperty: 'id',
-      // sortDirection: 'desc',
+      sortDirection: 'asc',
       filterTerm: '',
     }
   },
   computed : {
     orderedTickets: function(){
-      return _.sortBy(this.tickets, this.sortProperty );
+      const sorted =  _.sortBy(this.tickets, this.sortProperty);
+      const ordered = this.sortDirection == 'desc' ? sorted.reverse() : sorted;
+      return ordered;
     },
   },
   methods: {
     sort: function(_event, _sortProperty){
       _event.preventDefault();
+      if(this.sortProperty == _sortProperty)
+        this.sortDirection = this.sortDirection == 'asc' ? 'desc' : 'asc';
       this.sortProperty = _sortProperty;
-      // this.sortDirection = this.sortDirection == 'asc' ? 'desc' : 'asc'
+      console.log('[SORT][SORTPROPERTY] => ', this.sortProperty );
+      console.log('[SORT][SORTDIRECTION] => ', this.sortDirection );
     },
+    filter(){
+      console.log('[FILTER]');
+      let tickets = this.orderedTickets;
+      let sortProperty = this.sortProperty;
+      let filterTerm = this.filterTerm;
+      let filtered = [];
+      console.log('tickets', tickets);
+      filtered = tickets.filter(function(item){
+        console.log('item : ', item);
+        return item['responsavel'].indexOf(filterTerm) == -1;
+      });
+      console.log('filtered : ', filtered);
+      this.tickets = filtered;
+    }
   },
 };
 </script>

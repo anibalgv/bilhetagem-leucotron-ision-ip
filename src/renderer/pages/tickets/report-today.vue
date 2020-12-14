@@ -48,16 +48,13 @@
 import Tickets from "../../models/tickets";
 import Vue from "vue";
 import TableTickets from '../../components/tickets/table-tickets-component.vue';
+import Dates from '../../models/dates';
 
 export default {
   name: "report-today",
   methods: {
-    getTodayTickets: function () {
-      const now = new Date();
-      const day = now.getDate() < 10 ? "0" + now.getDate() : now.getDate();
-      const month = now.getMonth() + 1 < 10 ? "0" + (now.getMonth() + 1) : now.getMonth() + 1;
-      const year = now.getFullYear();
-      const today = `${year}-${month}-${day}`;
+    getTodayTickets: function () { 
+      const today = new Dates().getToday();
       const tickets = new Tickets().getByDate(today, today);
       return tickets;
     },
