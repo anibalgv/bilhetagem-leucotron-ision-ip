@@ -59,14 +59,16 @@ export default class Reports {
     return groupedTickets;
   }
 
-  SortByCountInverse(_object){
-    return _object.sort((a, b)=>{
-      if(a.count > b.count)
+  SortByCountInverse(_object) {
+    const ordered = _object.sort(function (a, b) {
+      if (a.count > b.count)
         return -1;
-      if(a.count < b.count)
+      if (a.count < b.count)
         return 1;
-      return 0 ;
+      return 0;
     });
+    console.log('[REPORTS][SORTBYCOUNTINVERSE]', ordered);
+    return ordered;
   }
 
 
