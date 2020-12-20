@@ -3,76 +3,140 @@
     <div class="row" style="z-index: 4; margin-top: -20px;">
         <DateBarComponent @onSelect="getSelectedDate" />
     </div>
-    <div class="row"  style="z-index: 1; margin-top: -60; backgroud-color: #ffffff">
-      <div class="col-6">
-        <ChartPie id="generalChart" label="GENERAL INFOS" :labels="generalChart.labels" :data="generalChart.data" :options='generalChart.options' />
-      </div>
-      <div class="col-2"></div>
-      <div class="col-4" style="margin-top: 135px;" v-show="generalChart.info[0]">
-        <table class="table table-sm small">
-          <thead>
-           <th>GENERAL </th>
-           <th>PERCENT</th>
-           <th>TOTAL</th>
-          </thead>
-          <tbody>
-            <tr v-for="info in generalChart.info" :key="info.label">
-              <td>{{info.label}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <ChartHorizontalBar id="received-chart" label="RECEBIDAS" :labels="receivedChart.labels" :data="receivedChart.data" :options='generalChart.options' />
-      </div>
-      <div class="col-3"></div>
-      <div class="col-3" style="margin-top: 0px;" v-show="receivedChart.labels[0]">
-        <table class="table table-sm small table-striped">
-          <thead>
-           <th>RAMAL </th>
-           <th>PERCENT</th>
-           <th>TOTAL</th>
-          </thead>
-          <tbody>
-            <tr v-for="info in receivedChart.info" :key="info.responsavel">
-              <td>{{info.responsavel}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <ChartHorizontalBar id="realizadas-chart" label="ORIGINADAS" :labels="realizadasChart.labels" :data="realizadasChart.data" :options='generalChart.options' />
-      </div>
-      <div class="col-3"></div>
-      <div class="col-3" style="margin-top: 0px;" v-show="realizadasChart.labels[0]">
-        <table class="table table-sm small table-striped">
-          <thead>
-           <th>RAMAL </th>
-           <th>PERCENT</th>
-           <th>TOTAL</th>
-          </thead>
-          <tbody>
-            <tr v-for="info in realizadasChart.info" :key="info.responsavel">
-              <td>{{info.responsavel}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+    <div id="div-charts" v-show="generalChart.info[0]">
+
+      <div class="block-header block-header-default" style="margin-top: 20px;">
+            <h3 class="block-title strong">INFORMACAO GERAL</h3>
+            <div class="block-options">
+            </div>
+          </div>
+          <div class="block-content" style="background-color: #ffffff">
+            <div >
+              <div class="row">
+                <div class="col-md-12 col-xl-12">
+                  <div>
+                    <div>
+                      <div class="block-content">
+                        <div class="row"  style="z-index: 1; margin-top: -110px; backgroud-color: #ffffff">
+                          <div class="col-6">
+                            <ChartPie id="generalChart" label="GENERAL INFOS" :labels="generalChart.labels" :data="generalChart.data" :options='generalChart.options' />
+                          </div>
+                          <div class="col-2"></div>
+                          <div class="col-4" style="margin-top: 120px;" >
+                            <table class="table table-sm small">
+                              <thead>
+                              <th>GENERAL </th>
+                              <th>PERCENT</th>
+                              <th>TOTAL</th>
+                              </thead>
+                              <tbody>
+                                <tr v-for="info in generalChart.info" :key="info.label">
+                                  <td>{{info.label}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-header block-header-default" style="margin-top:20px;">
+            <h3 class="block-title strong">LIGACOES RECEBIDAS</h3>
+            <div class="block-options">
+            </div>
+          </div>
+          <div class="block-content" style="background-color: #ffffff">
+            <div >
+              <div class="row">
+                <div class="col-md-12 col-xl-12">
+                  <div>
+                    <div>
+                      <div class="block-content">
+                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff">
+                          <div class="col-7">
+                            <ChartDoughnut id="received-chart" label="RECEBIDAS" :labels="receivedChart.labels" :data="receivedChart.data" :options='generalChart.options' />
+                          </div>
+                          <div class="col-1"></div>
+                          <div class="col-4" style="margin-top: 20px;">
+                            <table class="table table-sm small">
+                              <thead>
+                                <th>RAMAL </th>
+                                <th>PERCENT</th>
+                                <th>TOTAL</th>
+                              </thead>
+                              <tbody>
+                                <tr v-for="info in receivedChart.info" :key="info.responsavel">
+                                  <td>{{info.responsavel}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="block-header block-header-default" style="margin-top: 20px;">
+            <h3 class="block-title strong">LIGACOES RECEBIDAS</h3>
+            <div class="block-options">
+            </div>
+          </div>
+          <div class="block-content" style="background-color: #ffffff">
+            <div >
+              <div class="row">
+                <div class="col-md-12 col-xl-12">
+                  <div>
+                    <div>
+                      <div class="block-content">
+                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff">
+                          <div class="col-6">
+                            <ChartPie id="realizadas-chart" label="" :labels="realizadasChart.labels" :data="realizadasChart.data" :options='generalChart.options' />
+                          </div>
+                          <div class="col-2"></div>
+                          <div class="col-4" style="margin-top: 20px;">
+                            <table class="table table-sm small table-striped">
+                              <thead>
+                              <th>RAMAL </th>
+                              <th>PERCENT</th>
+                              <th>TOTAL</th>
+                              </thead>
+                              <tbody>
+                                <tr v-for="info in realizadasChart.info" :key="info.responsavel">
+                                  <td>{{info.responsavel}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div> <!--END div-charts -->
   </div>
 </template>
 
 <script>
 import Tickets from '../../models/tickets';
 import Reports from "../../models/reports";
+import DateBarComponent from "../../components/dates/date-bar-component";
 import ChartPie from "../../components/charts/chart-pie-component";
+import ChartRadar from "../../components/charts/chart-radar-component";
 import ChartDoughnut from "../../components/charts/chart-doughnut-component";
 import ChartHorizontalBar from "../../components/charts/chart-horizontalbar-component";
-import DateBarComponent from "../../components/dates/date-bar-component";
 
 export default {
   data: function () {
@@ -200,6 +264,7 @@ export default {
   },
   components: {
     ChartPie,
+    ChartRadar,
     ChartDoughnut,
     ChartHorizontalBar,
     DateBarComponent,

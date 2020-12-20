@@ -19,7 +19,7 @@
     </div>
 
     <div class="block-content" style="background-color: #ffffff">
-      <div class id>
+      <div  >
         <div class="row">
           <div class="col-md-6 col-xl-6">
             <div>
