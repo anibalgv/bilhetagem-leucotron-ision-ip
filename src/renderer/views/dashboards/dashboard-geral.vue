@@ -26,7 +26,7 @@
                           <div class="col-4" style="margin-top: 120px;" >
                             <table class="table table-sm small">
                               <thead>
-                              <th>GENERAL </th>
+                              <th>GENERAL</th>
                               <th>PERCENT</th>
                               <th>TOTAL</th>
                               </thead>
@@ -47,7 +47,7 @@
           </div>
 
           <div class="block-header block-header-default" style="margin-top:20px;">
-            <h3 class="block-title strong">LIGACOES RECEBIDAS</h3>
+            <h3 class="block-title strong">LIGACOES RECEBIDAS  <small class="small">(TOP 1O)</small> </h3>
             <div class="block-options">
             </div>
           </div>
@@ -58,21 +58,21 @@
                   <div>
                     <div>
                       <div class="block-content">
-                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff">
-                          <div class="col-7">
+                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff; margin-top: -40px">
+                          <div class="col-5">
                             <ChartDoughnut id="received-chart" label="RECEBIDAS" :labels="receivedChart.labels" :data="receivedChart.data" :options='generalChart.options' />
                           </div>
-                          <div class="col-1"></div>
+                          <div class="col-3"></div>
                           <div class="col-4" style="margin-top: 20px;">
                             <table class="table table-sm small">
                               <thead>
-                                <th>RAMAL </th>
+                                <th>RAMAL</th>
                                 <th>PERCENT</th>
                                 <th>TOTAL</th>
                               </thead>
                               <tbody>
                                 <tr v-for="info in receivedChart.info" :key="info.responsavel">
-                                  <td>{{info.responsavel}}</td> <td align="right">{{ info.percent}} %</td>  <td align="right"> {{info.count}}</td> 
+                                  <td align="left">{{info.responsavel}}</td> <td align="left">{{ info.percent}} %</td>  <td align="left"> {{info.count}}</td> 
                                 </tr>
                               </tbody>
                             </table>
@@ -87,7 +87,7 @@
           </div>
 
           <div class="block-header block-header-default" style="margin-top: 20px;">
-            <h3 class="block-title strong">LIGACOES RECEBIDAS</h3>
+            <h3 class="block-title strong">LIGACOES REALIZADAS</h3>
             <div class="block-options">
             </div>
           </div>
@@ -99,12 +99,12 @@
                     <div>
                       <div class="block-content">
                         <div class="row"  style="z-index: 1; backgroud-color: #ffffff">
-                          <div class="col-6">
-                            <ChartPie id="realizadas-chart" label="" :labels="realizadasChart.labels" :data="realizadasChart.data" :options='generalChart.options' />
+                          <div class="col-5">
+                            <ChartDoughnut id="realizadas-chart" label="" :labels="realizadasChart.labels" :data="realizadasChart.data" :options='generalChart.options' />
                           </div>
-                          <div class="col-2"></div>
+                          <div class="col-3"></div>
                           <div class="col-4" style="margin-top: 20px;">
-                            <table class="table table-sm small table-striped">
+                            <table class="table table-sm small">
                               <thead>
                               <th>RAMAL </th>
                               <th>PERCENT</th>
@@ -201,7 +201,6 @@ export default {
           percent: ((100 / this.tickets.length) * value.length ).toFixed(2)  
         });
       });
-      
       this.generalChart.labels = labels;
       this.generalChart.data = values;
       this.generalChart.info = new Reports().SortByCountInverse(info);
@@ -209,28 +208,26 @@ export default {
     },
     RenderRecebidasChart(){
       console.log('[RENDERRECEBIDASCHART]');
-      const filteredTickets = this.tickets.filter((item)=>{
+      const recebidas = this.tickets.filter((item)=>{
         return item.tipo == "RECEBIDA";
       });
-      let tickets = filteredTickets.reduce((prev, current, index)=>{
+      let recebidasGrouped = recebidas.reduce((prev, current, index)=>{
         prev[current.responsavel] = prev[current.responsavel] ? (prev[current.responsavel] + 1) : 1 ;
         return prev;
       },{});
-      let labels = [];
-      let data = [];
       let info = [];
-      Object.entries(tickets).forEach(([key, value])=>{
-        labels.push(key);
-        data.push(value);
+      Object.entries(recebidasGrouped).forEach(([key, value])=>{
         info.push({
           responsavel: key, 
           count : value,
-          percent: (( 100 / filteredTickets.length) * value).toFixed(2),
+          percent: (( 100 / recebidas.length) * value).toFixed(2),
         });
       });
-      this.receivedChart.labels = labels;
-      this.receivedChart.data = data;
-      this.receivedChart.info = new Reports().SortByCountInverse(info).slice(0, 10);
+      let tickets = info.sort((a, b) => b.count - a.count); 
+      tickets = tickets.length > 10 ? tickets.slice(0, 10) : tickets;
+      this.receivedChart.labels = tickets.map(item => item.responsavel);
+      this.receivedChart.data = tickets.map(item => item.count);
+      this.receivedChart.info = tickets;
     },
     RenderOriginadasChart(){
       console.log('[RENDERORIGINADASCHART]');
