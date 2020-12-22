@@ -1,23 +1,26 @@
 <template>
-  <div class="row col-12">
-    <!-- {{sortDirection}}
-    {{sortProperty}} -->
-    <!-- {{filterTerm}} -->
-    
-    <input type="text" name="" id="filter-term" v-model="filterTerm" hidden>
-    <button @click="filter" hidden>Filter</button>
-    <table class="table table-sm table-striped small table-hover" style="margin-top: 10px" >
+  <div class="col-12">
+      <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+          <div class="input-group">
+            <input type="text" id="input-filter" class=" form-control form-control-sm" v-model="filterTerm"  placeholder="type a number and press enter" />
+            <button class="btn btn-sm btn-primary" @click="filter">Filter</button>
+          </div>
+        </div>
+      </div>
+    <table class="table table-sm table-striped small table-hover" style="margin-top: 10px">
       <thead>
-        <th> <a href="#" @click="sort($event, 'id')"><i :class="[ sortProperty == 'id' ? sortDirection == 'asc' ? 'fa fa-arrow-up small' : 'fa fa-arrow-down' : '' ]"></i> DATA  </a></th>
-        <th><a href="#" @click="sort($event, 'hora_inicio')"> HORA  </a></th>
+        <th><a href="#" @click="sort($event, 'id')"><i :class="[ sortProperty == 'id' ? sortDirection == 'asc' ? 'fa fa-arrow-up small' : 'fa fa-arrow-down' : '' ]"></i> DATA  </a></th>
+        <th><a href="#" @click="sort($event, 'hora_inicio')"> HORA </a></th>
         <th><a href="#" @click="sort($event, 'responsavel')"> RAMAL </a></th>
         <th><a href="#" @click="sort($event, 'nome_usuario')"> NOME USUARIOAL </a></th>
         <th></th>
         <th><a href="#" @click="sort($event, 'tipo')"> TIPO </a></th>
         <th><a href="#" @click="sort($event, 'numero_externo')"> Nº EXTERNO </a></th>
         <th><a href="#" @click="sort($event, 'atributo')"> ATRIBUTO </a></th>
-        <th>ATENDIMENTO</th>
-        <th>DURACAO</th>
+        <th> ATENDIMENTO </th>
+        <th> DURACAO </th>
       </thead>
       <tBody>
         <tr v-for="ticket in orderedTickets" :key="ticket.id" >
@@ -65,20 +68,23 @@ export default {
       console.log('[SORT][SORTPROPERTY] => ', this.sortProperty );
       console.log('[SORT][SORTDIRECTION] => ', this.sortDirection );
     },
-    filter(){
-      console.log('[FILTER]');
-      let tickets = this.orderedTickets;
-      let sortProperty = this.sortProperty;
-      let filterTerm = this.filterTerm;
-      let filtered = [];
-      console.log('tickets', tickets);
-      filtered = tickets.filter(function(item){
-        console.log('item : ', item);
-        return item['responsavel'].indexOf(filterTerm) == -1;
-      });
-      console.log('filtered : ', filtered);
-      this.tickets = filtered;
-    }
+    filter: function(){
+      const filterTerm = this.filterTerm.toUpperCase();
+      let TRs = document.getElementsByTagName('TR');
+      for (let i = 0; i < TRs.length; i++) {
+        const tr = TRs[i];
+        let responsavel = tr.getElementsByTagName('TD')[2].innerText.toUpperCase();
+        let numero = tr.getElementsByTagName('TD')[6].innerText.toUpperCase();
+        if( responsavel.indexOf(filterTerm) > -1 || numero.indexOf(filterTerm) > -1 )
+          tr.style.display = '';
+        else
+          tr.style.display = 'none';
+      }
+      console.log('[FILTER] ', filterTerm);
+    },
+    search: function(_term){
+
+    },
   },
 };
 </script>

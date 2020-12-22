@@ -23,7 +23,7 @@
                             <ChartPie id="generalChart" label="GENERAL INFOS" :labels="generalChart.labels" :data="generalChart.data" :options='generalChart.options' />
                           </div>
                           <div class="col-2"></div>
-                          <div class="col-4" style="margin-top: 120px;" >
+                          <div class="col-4" style="margin-top: 100px;" >
                             <table class="table table-sm small">
                               <thead>
                               <th>GENERAL</th>
@@ -58,7 +58,7 @@
                   <div>
                     <div>
                       <div class="block-content">
-                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff; margin-top: -40px">
+                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff; margin-top: -20px">
                           <div class="col-5">
                             <ChartDoughnut id="received-chart" label="RECEBIDAS" :labels="receivedChart.labels" :data="receivedChart.data" :options='generalChart.options' />
                           </div>
@@ -98,7 +98,7 @@
                   <div>
                     <div>
                       <div class="block-content">
-                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff">
+                        <div class="row"  style="z-index: 1; backgroud-color: #ffffff; margin-top: -20px;">
                           <div class="col-5">
                             <ChartDoughnut id="realizadas-chart" label="" :labels="realizadasChart.labels" :data="realizadasChart.data" :options='generalChart.options' />
                           </div>
@@ -231,28 +231,26 @@ export default {
     },
     RenderOriginadasChart(){
       console.log('[RENDERORIGINADASCHART]');
-      const filteredTickets = this.tickets.filter((item)=>{
+      const originadas = this.tickets.filter((item)=>{
         return item.tipo == "ORIGINADA";
       });
-      let tickets = filteredTickets.reduce((prev, current, index)=>{
-        prev[current.responsavel] = prev[current.responsavel] ? (prev[current.responsavel] + 1) : 1 ;
+      let originadasGrouped = originadas.reduce((prev, current, index) => {
+        prev[current.responsavel] = prev[current.responsavel] ? (prev[current.responsavel] + 1) : 1;
         return prev;
       },{});
-      let labels = [];
-      let data = [];
       let info = [];
-      Object.entries(tickets).forEach(([key, value])=>{
-        labels.push(key);
-        data.push(value);
+      Object.entries(originadasGrouped).forEach(([key, value])=>{
         info.push({
           responsavel: key, 
           count : value,
-          percent: (( 100 / filteredTickets.length) * value).toFixed(2),
+          percent: (( 100 / originadas.length) * value).toFixed(2),
         });
       });
-      this.realizadasChart.labels = labels;
-      this.realizadasChart.data = data;
-      this.realizadasChart.info = info;
+      let tickets = info.sort((a, b) => b.count - a.count );
+      tickets = tickets.length > 0 ? tickets.slice(0, 10) : tickets;
+      this.realizadasChart.labels = tickets.map( item => item.responsavel);
+      this.realizadasChart.data = tickets.map( item => item.count);
+      this.realizadasChart.info = tickets;
     },
   },  //end methods
  
