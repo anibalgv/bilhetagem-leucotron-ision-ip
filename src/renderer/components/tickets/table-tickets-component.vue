@@ -4,7 +4,7 @@
         <div class="col-8"></div>
         <div class="col-4">
           <div class="input-group">
-            <input type="text" id="input-filter" class=" form-control form-control-sm" v-model="filterTerm"  placeholder="type a number and press enter" />
+            <input type="text" id="input-filter" class=" form-control form-control-sm" v-model="filterTerm"  placeholder="type a number" />
             <button class="btn btn-sm btn-primary" @click="filter">Filter</button>
           </div>
         </div>
@@ -73,12 +73,14 @@ export default {
       let TRs = document.getElementsByTagName('TR');
       for (let i = 0; i < TRs.length; i++) {
         const tr = TRs[i];
-        let responsavel = tr.getElementsByTagName('TD')[2].innerText.toUpperCase();
-        let numero = tr.getElementsByTagName('TD')[6].innerText.toUpperCase();
+        if (tr){
+          let responsavel = tr.getElementsByTagName('td')[2].innerText.toUpperCase();
+        let numero = tr.getElementsByTagName('td')[6].innerText.toUpperCase();
         if( responsavel.indexOf(filterTerm) > -1 || numero.indexOf(filterTerm) > -1 )
           tr.style.display = '';
         else
           tr.style.display = 'none';
+        }
       }
       console.log('[FILTER] ', filterTerm);
     },

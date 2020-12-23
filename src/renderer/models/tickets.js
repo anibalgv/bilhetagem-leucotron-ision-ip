@@ -4,6 +4,7 @@ import CSV from './csv';
 import Ftp from './ftp';
 import Calls from './calls';
 import JSONS from './jsons';
+import Configurations from './configurations';
 
 export default class Tickets {
 
@@ -11,11 +12,11 @@ export default class Tickets {
   bilhetPath = null;
 
   constructor() {
-    if (process.env.NODE_ENV !== 'development'){
+    if (process.env.NODE_ENV !== 'development') {
       this.databasePath = process.cwd() + '/resources/extraResources/tickets.sqlite';
       this.bilhetPath = process.cwd() + '/resources/extraResources/bilhet';
     }
-    else{
+    else {
       this.databasePath = __dirname + '/../database/tickets.sqlite';
       this.bilhetPath = __dirname + '/../downloads/bilhet';
     }
@@ -100,7 +101,6 @@ export default class Tickets {
     try {
       const tickets = this.All();
       const ticketsTEXT = JSON.stringify(tickets);
-      //fs.writeFileSync(__dirname + '/../database/exported_tickets.json', ticketsTEXT);
       console.log('[TICKETS][EXPORTTOJSON]', tickets);
       new Files().SaveDialog('exported_tickets.json', ticketsTEXT);
     } catch (error) {
@@ -191,6 +191,51 @@ export default class Tickets {
     }
   }
 
-}
+  getBySynchronized(_synchronized) {
+    try {
+      sqlite.connect(this.databasePath);
+      const sincronizado = !!_synchronized ? 1 : 0;
+      const tickets = sqlite.run("SELECT * FROM tickets WHERE sincronizado = ?;", [sincronizado]);
+      sqlite.close();
+      console.log('[TICKETS][GETBYSYNC]', _synchronized);
+      return tickets;
+    } catch (error) {
+      console.log('[TICKETS][GETBYSYNC] -> ERROR\n', error);
+    }
+  }
 
+  async SyncToApi() {
+    try {
+      const configuration = new Configurations().getConfiguration();
+      const tickets = this.getBySynchronized(false);
+      let synchronized = await fetch(configuration.api_address, {
+        method: 'post',
+        body: JSON.stringify(tickets),
+      }).then(function (response) {
+        return response.json();
+      });
+      console.log('[TICKETS][SYNCTOAPI]');
+      if (await synchronized.ok)
+        this.setAsSynchronied(tickets);
+      return true;
+    } catch (error) {
+      console.log('[TICKETS][SYNCTOAPI]  ERROR => ', error);
+      return false;
+    }
+  }
 
+  setAsSynchronied(_tickets) {
+    try {
+      const tickets = _tickets.map(item => item.id);
+      sqlite.connect(this.databasePath);
+      sqlite.run("UPDATE tickets SET sincronizado =1 WHERE tickets.id IN (?) ", [tickets]);
+      sqlite.close();
+      console.log('[TICKETS][SETASSYNCHRONIED]', tickets);
+      return true;
+    } catch (error) {
+      console.log('[TICKETS][SETASSYNCHRONIED] -> ERROR\n', error);
+      return false;
+    }
+  }
+
+}// END class
