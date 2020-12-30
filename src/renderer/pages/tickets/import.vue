@@ -128,6 +128,7 @@
         </div>
       </div>
     </div>
+    <a class="btn btn-primary" @click="syncToApi">Sync To Api </a>
   </div>
 </template>
 
@@ -165,6 +166,9 @@ export default {
         }, (this.configuration.app_auto_import_interval * 60000) * 60);
       }
     },
+    async syncToApi() {
+      new Tickets().SyncToApi();
+    }
   },
   data: function () {
     return {

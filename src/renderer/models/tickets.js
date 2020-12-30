@@ -195,9 +195,9 @@ export default class Tickets {
     try {
       sqlite.connect(this.databasePath);
       const sincronizado = !!_synchronized ? 1 : 0;
-      const tickets = sqlite.run("SELECT * FROM tickets WHERE sincronizado = ?;", [sincronizado]);
+      let tickets = sqlite.run("SELECT * FROM tickets WHERE sincronizado = ?;", [sincronizado]);
       sqlite.close();
-      console.log('[TICKETS][GETBYSYNC]', _synchronized);
+      console.log('[TICKETS][GETBYSYNC]', _synchronized, tickets);
       return tickets;
     } catch (error) {
       console.log('[TICKETS][GETBYSYNC] -> ERROR\n', error);
@@ -209,15 +209,24 @@ export default class Tickets {
       const configuration = new Configurations().getConfiguration();
       const tickets = this.getBySynchronized(false);
       let synchronized = await fetch(configuration.api_address, {
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          // "X-Requested-With": "XMLHttpRequest",
+        },
+        credentials: "same-origin",
         method: 'post',
         body: JSON.stringify(tickets),
+        
       }).then(function (response) {
-        return response.json();
+         console.log('response', response);
+         console.log('response', response.json());
       });
       console.log('[TICKETS][SYNCTOAPI]');
-      if (await synchronized.ok)
-        this.setAsSynchronied(tickets);
-      return true;
+      await console.log('synchronized :', synchronized);
+      // if (await synchronized.ok)
+      //   this.setAsSynchronied(tickets);
+      // return true;
     } catch (error) {
       console.log('[TICKETS][SYNCTOAPI]  ERROR => ', error);
       return false;
