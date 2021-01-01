@@ -5,6 +5,7 @@ import Ftp from './ftp';
 import Calls from './calls';
 import JSONS from './jsons';
 import Configurations from './configurations';
+import Api from './api';
 
 export default class Tickets {
 
@@ -197,49 +198,37 @@ export default class Tickets {
       const sincronizado = !!_synchronized ? 1 : 0;
       let tickets = sqlite.run("SELECT * FROM tickets WHERE sincronizado = ?;", [sincronizado]);
       sqlite.close();
-      console.log('[TICKETS][GETBYSYNC]', _synchronized, tickets);
+      console.log('[TICKETS][GETBYSYNCHRONIZED]', _synchronized, tickets);
       return tickets;
     } catch (error) {
-      console.log('[TICKETS][GETBYSYNC] -> ERROR\n', error);
+      console.log('[TICKETS][GETBYSYNCHRONIZED] -> ERROR\n', error);
     }
   }
 
   async SyncToApi() {
     try {
-      const configuration = new Configurations().getConfiguration();
       const tickets = this.getBySynchronized(false);
-      let synchronized = await fetch(configuration.api_address, {
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          // "X-Requested-With": "XMLHttpRequest",
-        },
-        credentials: "same-origin",
-        method: 'post',
-        body: JSON.stringify(tickets),
-        
-      }).then(function (response) {
-         console.log('response', response);
-         console.log('response', response.json());
-      });
-      console.log('[TICKETS][SYNCTOAPI]');
-      await console.log('synchronized :', synchronized);
-      // if (await synchronized.ok)
-      //   this.setAsSynchronied(tickets);
-      // return true;
+      if (tickets.length == 0)
+        return { success: false, message: "NO TICKETS TO BE SYNCHRONIZED" };
+      const api_address = new Configurations().getConfiguration().api_address;
+      const postResponse = await new Api().Post(api_address + '/tickets', tickets);
+      if (postResponse.success)
+        this.setAsSynchronied();
+      console.log('[TICKETS][SYNCTOAPI]', postResponse);
+      return postResponse;
     } catch (error) {
       console.log('[TICKETS][SYNCTOAPI]  ERROR => ', error);
       return false;
     }
   }
 
-  setAsSynchronied(_tickets) {
+  setAsSynchronied() {
     try {
-      const tickets = _tickets.map(item => item.id);
+      console.log('[TICKETS][SETASSYNCHRONIED][START]');
       sqlite.connect(this.databasePath);
-      sqlite.run("UPDATE tickets SET sincronizado =1 WHERE tickets.id IN (?) ", [tickets]);
+      sqlite.run("UPDATE tickets SET sincronizado = 1 WHERE sincronizado = 0");
       sqlite.close();
-      console.log('[TICKETS][SETASSYNCHRONIED]', tickets);
+      console.log('[TICKETS][SETASSYNCHRONIED]');
       return true;
     } catch (error) {
       console.log('[TICKETS][SETASSYNCHRONIED] -> ERROR\n', error);
