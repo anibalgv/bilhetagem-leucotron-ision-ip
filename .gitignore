@@ -10,3 +10,7 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 .favorites.json
+start.bat
+.gitignore
+extraResources/tickets.sqlite
+src/renderer/database/tickets.sqlite
