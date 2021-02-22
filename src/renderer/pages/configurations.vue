@@ -99,7 +99,7 @@
                 for="app_auto_sync"
                 style="margin-top: 25px"
               >
-                <small>AUTO SYNC TO API</small>
+                <small>SYNC TO API</small>
               </label>
             </div>
           </div>

@@ -44,7 +44,7 @@
                         <i class="fa fa-file-import fa-2x text-success"></i>
                       </div>
                       <div class="font-size-h4 font-w700">
-                        <span class="text-muted"></span> IMPORT
+                        <span class="text-muted"></span> IMPORT <span v-if="configuration.app_auto_sync">AND SYNC TO WEB</span>
                       </div>
                       <div class="font-size-sm text-muted text-uppercase">
                         FROM APLIANCE TO LOCAL DATABASE
@@ -128,7 +128,7 @@
         </div>
       </div>
     </div>
-    <a class="btn btn-primary" @click="syncToApi">Sync To Api </a>
+    <!-- <a class="btn btn-primary" @click="syncToApi">Sync To Api </a> -->
   </div>
 </template>
 
@@ -146,10 +146,15 @@ export default {
     async Import() {
       info({title:'IMPORTING', text:'AWAIT....'});
       const imported = await new Tickets().Import();
+      
       if(imported)
         success({title:'IMPORT', text:'Success'});
       else
         alert({title:'IMPORT', text:'Error' });
+      
+      if(new Configurations().getConfiguration().app_auto_sync)
+        this.syncToApi();
+      
     },
     exportToJSON() {
       new Tickets().ExportToJSON();
@@ -167,7 +172,12 @@ export default {
       }
     },
     async syncToApi() {
-      new Tickets().SyncToApi();
+      const response  = await new Tickets().SyncToApi();
+      if(response.success)
+        success({title:'SYNC TO API',})
+      else
+        alert({title:'SYNC TO API', text: response.message});
+
     }
   },
   data: function () {

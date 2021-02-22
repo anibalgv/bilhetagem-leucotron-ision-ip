@@ -3,9 +3,7 @@
     <div class="row" style="z-index: 4; margin-top: -20px;">
         <DateBarComponent @onSelect="getSelectedDate" />
     </div>
-
     <div id="div-charts" v-show="generalChart.info[0]">
-
       <div class="block-header block-header-default" style="margin-top: 20px;">
             <h3 class="block-title strong">INFORMACAO GERAL</h3>
             <div class="block-options">
@@ -137,6 +135,7 @@ import ChartPie from "../../components/charts/chart-pie-component";
 import ChartRadar from "../../components/charts/chart-radar-component";
 import ChartDoughnut from "../../components/charts/chart-doughnut-component";
 import ChartHorizontalBar from "../../components/charts/chart-horizontalbar-component";
+import BoxTitleSimple from "../../components/boxes/box-title-simple";
 
 export default {
   data: function () {
@@ -263,6 +262,7 @@ export default {
     ChartDoughnut,
     ChartHorizontalBar,
     DateBarComponent,
+    BoxTitleSimple,
   },
 };
 </script>
