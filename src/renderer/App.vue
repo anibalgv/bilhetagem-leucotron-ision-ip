@@ -682,9 +682,42 @@ import HomeNotifications from './views/home/home-notifications.vue';
 import HomeUserDropdown from './views/home/home-user-dropdown.vue';
 import HomeSidebarMenu from './views/home/home-sidebar-menu.vue';
 
+
+import Tickets from "./models/tickets";
+import Configurations from "./models/configurations";
+import { alert, success, defaultModules, Stack, info } from '@pnotify/core';
+import '@pnotify/core/dist/PNotify.css';
+import * as PNotifyBootstrap4 from '@pnotify/bootstrap4';
+defaultModules.set(PNotifyBootstrap4, {});
+
 export default {
   name: "Leucotron",
   methods: {
+    autoImport() {
+      this.configuration = new Configurations().getConfiguration();
+      if (this.configuration.app_auto_import && this.configuration.app_auto_import_interval > 0 ) {
+        this.timer = setInterval(() => {
+          this.Import();
+        }, (this.configuration.app_auto_import_interval * 60000) * 2);
+      }
+      else {
+        if (this.timer) 
+          clearInterval(this.timer);
+      }
+    },
+     async Import() {
+      info({title:'IMPORTING', text:'AWAIT....'});
+      const imported = await new Tickets().Import();
+      
+      if(imported)
+        success({title:'IMPORT', text:'Success'});
+      else
+        alert({title:'IMPORT', text:'Error' });
+      
+      if(new Configurations().getConfiguration().app_auto_sync)
+        this.syncToApi();
+      
+    },
     closeWindow() {
       remote.getCurrentWindow().close();
     },
@@ -700,6 +733,8 @@ export default {
     },
   },
   mounted: function () {
+    this.autoImport();
+    
     // const customTitlebar = require("custom-electron-titlebar");
     // let MyTitleBar = new customTitlebar.Titlebar({
     //   backgroundColor: customTitlebar.Color.fromHex("#ffff"),
@@ -709,6 +744,12 @@ export default {
     // });
     // MyTitleBar.updateTitle("Executar.Net");
     // MyTitleBar.setHorizontalAlignment('right');
+  },
+  data: function () {
+    return {
+      configuration: {},
+      timer: 0,
+    };
   },
   components: {
     'HomeAside': HomeAside,
