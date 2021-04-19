@@ -211,9 +211,9 @@ export default class Tickets {
       if (tickets.length == 0)
         return { success: false, message: "NO TICKETS TO BE SYNCHRONIZED" };
       const api_address = new Configurations().getConfiguration().api_address;
-      const postResponse = await new Api().Post(api_address + '/tickets', tickets);
-      if (postResponse.success)
-        this.setAsSynchronied();
+      const postResponse = await new Api().Post(api_address + '/ticket/store', tickets);
+      // if (postResponse.success)
+        // this.setAsSynchronied();
       console.log('[TICKETS][SYNCTOAPI]', postResponse);
       return postResponse;
     } catch (error) {

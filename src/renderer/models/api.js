@@ -7,8 +7,9 @@ export default class Api {
         method: 'post',
         body: JSON.stringify(_json),
       });
-      console.log('[API][POST]', _url, _json);
-      return response.json();
+      const responseJSON = await response.json();
+      console.log('[API][POST]', _url, responseJSON);
+      return responseJSON;
     } catch (error) {
       console.log('[API][POST]  ERROR => ', error);
     }

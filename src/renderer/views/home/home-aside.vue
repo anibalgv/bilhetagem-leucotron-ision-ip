@@ -405,9 +405,7 @@
               >
                 <div class="row">
                   <div class="col-6">
-                    <span class="font-size-sm font-w600 text-uppercase"
-                      >Today</span
-                    >
+                    <span class="font-size-sm font-w600 text-uppercase">Today</span>
                   </div>
                   <div class="col-6 text-right">
                     <span class="ext-muted">$996</span>

@@ -36,11 +36,11 @@
                   <span class="nav-main-link-name">Select date</span>
                 </router-link>
               </li>
-              <li class="nav-main-item">
+              <!-- <li class="nav-main-item">
                 <router-link to="/tickets/reports-spent-time" class="nav-main-link">
                   <span class="nav-main-link-name">Spent Time</span>
                 </router-link>
-              </li>
+              </li> -->
             </ul>
           </li>
           <!-- <li class="nav-main-item">

@@ -694,18 +694,11 @@ export default {
   name: "Leucotron",
   methods: {
     autoImport() {
-      this.configuration = new Configurations().getConfiguration();
-      if (this.configuration.app_auto_import && this.configuration.app_auto_import_interval > 0 ) {
-        this.timer = setInterval(() => {
-          this.Import();
-        }, (this.configuration.app_auto_import_interval * 60000) * 2);
-      }
-      else {
-        if (this.timer) 
-          clearInterval(this.timer);
-      }
+      this.timerAutoImport = setInterval(() => {
+        this.Import();
+      }, (this.configuration.app_auto_import_interval * 60000) * 2);
     },
-     async Import() {
+    async Import() {  
       info({title:'IMPORTING', text:'AWAIT....'});
       const imported = await new Tickets().Import();
       
@@ -715,7 +708,7 @@ export default {
         alert({title:'IMPORT', text:'Error' });
       
       if(new Configurations().getConfiguration().app_auto_sync)
-        this.syncToApi();
+        new Tickets().SyncToApi();
       
     },
     closeWindow() {
@@ -731,9 +724,36 @@ export default {
         remote.getCurrentWindow().maximize();
       }
     },
-  },
+    checkConfiguration () {
+      console.log('[APP.VUE][CHECKCONFIGURATION]');
+      this.timerConfig = setInterval(() => {
+        this.configuration = new Configurations().getConfiguration();
+        if (this.configuration.app_auto_import) {
+          if(JSON.stringify(this.configuration) !== JSON.stringify(this.configurationCurrent)){
+            if(this.timerAutoImport)
+              clearInterval(this.timerAutoImport);
+            this.configurationCurrent = new Configurations().getConfiguration();
+            this.autoImport();
+          }else{
+            if(!this.timerAutoImport)
+              this.autoImport();
+          }
+        }else{
+          if(this.timerAutoImport)
+            clearInterval(this.timerAutoImport);
+        }
+      }, (60000 * 1));
+    },
+  }, //END methods
   mounted: function () {
-    this.autoImport();
+    this.configurationCurrent = new Configurations().getConfiguration();
+    this.checkConfiguration();
+    // this.autoImport();
+
+
+
+
+
     
     // const customTitlebar = require("custom-electron-titlebar");
     // let MyTitleBar = new customTitlebar.Titlebar({
@@ -748,7 +768,9 @@ export default {
   data: function () {
     return {
       configuration: {},
-      timer: 0,
+      configurationCurrent : {},
+      timerAutoImport: 0,
+      timerConfig: 0,
     };
   },
   components: {
